@@ -31,3 +31,22 @@ body {
     text-wrap: balance;
   }
 }
+
+
+@keyframes blink {
+  0% { border-color: transparent; }
+  50% { border-color: white; }
+  100% { border-color: transparent; }
+}
+
+.blinking-cursor {
+  animation: blink 1s infinite;
+  border-left: 15px solid white;
+
+}
+
+.blinking-cursor:focus {
+  outline: none;
+}
+
+
