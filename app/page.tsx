@@ -4,6 +4,7 @@ import Image from "next/image";
 import TerminalPrompt from "./components/TerminalPrompt";
 import { useState } from "react";
 import TerminalHistoryList from "./components/TerminalHistoryList";
+import { PortfolioCommands } from "./helpers/Commands";
 
 export default function Home() {
   const [terminalHistory, setTerminalHistory] = useState<string[]>(["initial"]);
@@ -15,7 +16,10 @@ export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div className="z-10 max-w-5xl w-full flex-col justify-between font-mono text-sm lg:flex">
-        <TerminalHistoryList inputs={terminalHistory} />
+        <TerminalHistoryList
+          inputs={terminalHistory}
+          clearHistory={() => setTerminalHistory([PortfolioCommands.Initial])}
+        />
         <TerminalPrompt addToTerminalHistory={addToTerminalHistory} />
       </div>
     </main>

@@ -1,11 +1,12 @@
 import React from "react";
 import { PortfolioCommands } from "./Commands";
-import Initial from "../components/options/initial";
-import About from "../components/options/about";
-import Contact from "../components/options/contact";
-import Resume from "../components/options/resume";
-import Skills from "../components/options/skills";
+import Initial from "../components/options/Initial";
+import About from "../components/options/About";
+import Contact from "../components/options/Contact";
+import Resume from "../components/options/Resume";
+import Skills from "../components/options/Skills";
 import Help from "../components/options/Help";
+import Surprise from "../components/options/Surprise";
 function executeCommand(command: string): React.FC | React.JSX.Element {
   switch (command) {
     case PortfolioCommands.Initial:
@@ -23,7 +24,7 @@ function executeCommand(command: string): React.FC | React.JSX.Element {
     case PortfolioCommands.Help:
       return Help;
     case PortfolioCommands.Surprise:
-      return <p>Surprise: [Your Surprise Info]</p>;
+      return Surprise;
     default:
       return (
         <p>Command not recognized. Type `help` to see all available options.</p>
