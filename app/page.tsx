@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import TerminalPrompt from "./components/TerminalPrompt";
 import { useState } from "react";
 import TerminalHistoryList from "./components/TerminalHistoryList";

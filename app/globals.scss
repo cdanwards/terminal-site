@@ -45,8 +45,9 @@ body {
 }
 
 .blinking-cursor {
-  animation: blink 1s infinite;
-  border-left: 15px solid white;
+  // animation: blink 1s infinite;
+  // border-left: 15px solid white;
+  // caret-color: transparent;
 }
 
 .blinking-cursor:focus {

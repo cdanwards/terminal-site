@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./surprise.scss";
+import styles from "./surprise.module.scss";
 
 const Surprise: React.FC = () => {
   return (
