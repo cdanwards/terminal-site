@@ -14,28 +14,33 @@ const Projects: React.FC = () => {
       description:
         "A unique portfolio website that simulates a terminal interface, allowing visitors to navigate through different sections using terminal commands.",
       technologies: ["Next.js", "TypeScript", "React", "Tailwind CSS"],
-      link: "https://github.com/yourusername/terminal-website",
+      link: "https://github.com/cdanwards/terminal-website",
     },
     {
-      title: "E-commerce Platform",
+      title: "Psychosocial",
       description:
-        "A full-featured e-commerce platform with product listings, shopping cart, and secure checkout process.",
+        "A parody social media platform inspired by Twitter that allows users to share thoughts, images, and interact with other users in a metal inspired interface.",
       technologies: ["React", "Node.js", "Express", "MongoDB"],
-      link: "https://github.com/yourusername/ecommerce-platform",
+      link: "https://github.com/cdanwards/psychosocial",
     },
     {
-      title: "Weather App",
+      title: "Animation Practice",
       description:
-        "A responsive weather application that provides real-time weather forecasts based on user location or search.",
-      technologies: ["React Native", "TypeScript", "Weather API"],
-      link: "https://github.com/yourusername/weather-app",
+        "A collection of React Native animation experiments using React Native's Animation API to create engaging user interfaces and interactions.",
+      technologies: [
+        "React Native",
+        "React Animation API",
+        "TypeScript",
+        "Expo",
+      ],
+      link: "https://github.com/cdanwards/animation-practice",
     },
     {
-      title: "Task Management System",
+      title: "Word Assassins",
       description:
-        "A productivity tool for managing tasks, projects, and deadlines with collaborative features.",
-      technologies: ["Vue.js", "Firebase", "Vuetify"],
-      link: "https://github.com/yourusername/task-manager",
+        "A multiplayer word game where players compete to eliminate other players by getting them to say their assigned target words.",
+      technologies: ["React Native", "Firebase", "Socket.io", "Node.js"],
+      link: "https://github.com/cdanwards/word-assassins",
     },
   ];
 
