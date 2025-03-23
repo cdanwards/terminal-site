@@ -10,12 +10,15 @@ const TerminalHistoryList: React.FC<TerminalHistoryListProps> = ({
   inputs,
   clearHistory,
 }) => {
+  // Filter out "initial" placeholder, which shouldn't be shown to the user
+  const displayInputs = inputs.filter((input) => input !== "initial");
+
   return (
-    <div className="py-8">
-      {inputs.map((input, index) => (
-        <React.Fragment key={index}>
+    <div className="terminal-history">
+      {displayInputs.map((input, index) => (
+        <React.Fragment key={`${input}-${index}`}>
           <TerminalHistoryInput command={input} clearHistory={clearHistory} />
-          {index !== inputs.length - 1 && <div style={{ marginTop: "10px" }} />}
+          {index !== displayInputs.length - 1 && <div className="my-2" />}
         </React.Fragment>
       ))}
     </div>

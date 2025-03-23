@@ -1,21 +1,40 @@
 import React from "react";
 
 const Skills: React.FC = () => {
+  const skillsList = [
+    "React",
+    "React Native",
+    "TypeScript",
+    "JavaScript",
+    "Angular2+",
+    "NestJS",
+    "Apollo GraphQL",
+    "SASS",
+    "jQuery",
+    "Backbone.js",
+    "Node.js",
+    "SQL (MySQL, MSSQL)",
+    "NoSQL",
+    "Docker",
+    "CI/CD Pipelines",
+    "Data Analysis",
+    "Responsive Design",
+    "RESTful APIs",
+    "Git",
+    "Agile Methodologies",
+  ];
+
   return (
-    <div>
-      <h2>Skills</h2>
-      <ul>
-        <li>React, React Native</li>
-        <li>TypeScript, JavaScript</li>
-        <li>Angular2+, NestJS</li>
-        <li>Apollo GraphQL</li>
-        <li>SASS, jQuery, Backbone.js</li>
-        <li>Node.js</li>
-        <li>SQL (MySQL, MSSQL, SQLite)</li>
-        <li>Containerization (Docker, etc.)</li>
-        <li>CI/CD and Deployment Pipelines</li>
-        <li>Data Analysis (Excel, SQL)</li>
-      </ul>
+    <div className="skills-container">
+      <h2>Technical Skills</h2>
+
+      <div className="skills-grid">
+        {skillsList.map((skill, index) => (
+          <div key={index} className="skill-item">
+            {skill}
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

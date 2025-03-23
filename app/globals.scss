@@ -6,6 +6,50 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
+  --terminal-bg: #1a1a1a;
+  --terminal-text: #f0f0f0;
+}
+
+[data-theme="light"] {
+  --terminal-bg: rgba(240, 240, 240, 0.65);
+  --terminal-text: #333333;
+  --terminal-green: #2e7d32;
+  --terminal-blue: #1565c0;
+  --terminal-header-bg: rgba(224, 224, 224, 0.7);
+  --terminal-border: #b0b0b0;
+  --command-text: #111111;
+  --output-text: #333333;
+  --prompt-color: #2e7d32;
+  --suggestion-bg: rgba(224, 224, 224, 0.9);
+  --suggestion-border: #b0b0b0;
+  --suggestion-hover: #d0d0d0;
+  --code-bg: rgba(216, 216, 216, 0.7);
+  --project-card-bg: rgba(230, 230, 230, 0.7);
+  --project-card-border: #cccccc;
+  --project-title: #2e7d32;
+  --project-tag-bg: #d0d0d0;
+  --project-link: #1565c0;
+}
+
+[data-theme="dark"] {
+  --terminal-bg: rgba(26, 26, 26, 0.65);
+  --terminal-text: #f0f0f0;
+  --terminal-green: #4caf50;
+  --terminal-blue: #2196f3;
+  --terminal-header-bg: rgba(45, 45, 45, 0.7);
+  --terminal-border: #3e3e3e;
+  --command-text: #ffffff;
+  --output-text: #cccccc;
+  --prompt-color: #4caf50;
+  --suggestion-bg: rgba(45, 45, 45, 0.9);
+  --suggestion-border: #3e3e3e;
+  --suggestion-hover: #3d3d3d;
+  --code-bg: rgba(42, 42, 42, 0.7);
+  --project-card-bg: rgba(31, 31, 31, 0.7);
+  --project-card-border: #3e3e3e;
+  --project-title: #4caf50;
+  --project-tag-bg: rgba(45, 45, 45, 0.7);
+  --project-link: #2196f3;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -32,24 +76,1483 @@ body {
   }
 }
 
-@keyframes blink {
-  0% {
-    border-color: transparent;
+/* Terminal specific styles */
+.terminal-window {
+  background-color: var(--terminal-bg);
+  color: var(--terminal-text);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  border-radius: 6px;
+  border: 1px solid var(--terminal-border);
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+  position: relative;
+  isolation: isolate; /* Create a new stacking context */
+  display: flex;
+  flex-direction: column;
+  backdrop-filter: blur(2px);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.7);
+}
+
+[data-theme="light"] .terminal-window {
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
+}
+
+/* Add a subtle shadow effect to the terminal header */
+.terminal-header {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  background-color: var(--terminal-header-bg);
+  transition: background-color 0.3s;
+  position: relative;
+  z-index: 10;
+  backdrop-filter: blur(1px);
+  border-bottom: 1px solid var(--terminal-border);
+}
+
+[data-theme="light"] .terminal-header {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+/* Footer styling */
+.terminal-footer {
+  background-color: var(--terminal-bg);
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s;
+  position: relative;
+  z-index: 10; /* Lower than suggestions */
+  margin-top: auto; /* Push to bottom */
+  backdrop-filter: blur(1px);
+  border-top: 1px solid var(--terminal-border);
+}
+
+[data-theme="light"] .terminal-footer {
+  border-top: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+/* Command prompt styling */
+.prompt-sign {
+  color: var(--prompt-color);
+  text-shadow: 0 0 3px rgba(0, 128, 0, 0.5);
+}
+
+/* Terminal history input styling */
+.command-text {
+  color: var(--command-text);
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.7);
+}
+
+.output-text {
+  color: var(--output-text);
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.7);
+}
+
+/* Suggestion item hover effect */
+.suggestion-item:hover {
+  background-color: var(--suggestion-hover);
+}
+
+/* Terminal content scrolling */
+.terminal-content {
+  scrollbar-width: thin;
+  scrollbar-color: var(--terminal-border) var(--terminal-bg);
+  scroll-behavior: smooth;
+  overscroll-behavior: contain;
+  padding-bottom: 1rem;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: var(--terminal-bg);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--terminal-border);
+    border-radius: 20px;
+    border: 2px solid var(--terminal-bg);
+  }
+}
+
+/* Improve terminal history spacing */
+.terminal-history {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* Terminal content area */
+.terminal-content-wrapper {
+  position: relative;
+  isolation: isolate; /* Create a new stacking context */
+  opacity: 0;
+  animation: fadeIn 0.5s ease-in-out forwards;
+  animation-delay: 0.1s;
+  height: 100%;
+  background-color: var(--terminal-bg);
+  backdrop-filter: blur(1px);
+}
+
+/* Input area styling */
+.terminal-input-area {
+  border-color: var(--terminal-border);
+  background-color: var(--terminal-bg);
+  transition: border-color 0.3s;
+  position: relative;
+  z-index: 20;
+  isolation: isolate;
+  backdrop-filter: blur(1px);
+}
+
+/* Loading animation and transition */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.loading-content {
+  animation: fadeIn 0.3s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding-top: 1rem;
+  background-color: var(--terminal-bg);
+  backdrop-filter: blur(1px);
+}
+
+.loading-content .flex {
+  display: flex;
+  align-items: center;
+}
+
+/* Pulsing dots with proper delays */
+.pulse-dot {
+  animation: pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.pulse-dot-2 {
+  animation-delay: 200ms;
+}
+
+.pulse-dot-3 {
+  animation-delay: 400ms;
+}
+
+/* Command suggestion and autocomplete styling */
+.terminal-suggestions {
+  z-index: 1000;
+  position: relative;
+  background-color: var(--suggestion-bg);
+  border-color: var(--suggestion-border);
+  border-radius: 0.375rem;
+
+  button {
+    position: relative;
+    z-index: 1001;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+
+    &:hover {
+      background-color: var(--suggestion-hover) !important;
+    }
+  }
+}
+
+/* Autocomplete suggestion styling */
+.autocomplete-suggestion {
+  opacity: 0.5;
+  color: var(--terminal-text);
+  pointer-events: none;
+  user-select: none;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+/* Projects component styling */
+.project-card {
+  transition: background-color 0.3s, border-color 0.3s, transform 0.2s;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.project-title {
+  transition: color 0.3s;
+}
+
+.project-tag {
+  transition: background-color 0.3s;
+  color: var(--output-text);
+}
+
+.project-link {
+  transition: color 0.3s;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+/* Contact component styling */
+.contact-link {
+  display: inline-flex;
+  align-items: center;
+  color: var(--terminal-blue);
+  padding: 0.5rem 0.75rem;
+  margin-bottom: 0.75rem;
+  border-radius: 0.375rem;
+  transition: all 0.2s ease;
+  position: relative;
+
+  &:hover {
+    background-color: var(--suggestion-bg);
+    transform: translateX(4px);
+    text-decoration: underline;
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+
+  .icon {
+    margin-right: 0.5rem;
+  }
+}
+
+/* About component styling */
+.about-container {
+  max-width: 650px;
+
+  h1 {
+    color: var(--terminal-green);
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--terminal-border);
+  }
+
+  p {
+    margin-bottom: 1rem;
+    line-height: 1.6;
+  }
+}
+
+/* Resume component styling */
+.resume-container {
+  color: var(--terminal-text);
+
+  h2 {
+    color: var(--terminal-green);
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--terminal-border);
+  }
+
+  h3 {
+    color: var(--terminal-blue);
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+  }
+
+  h4 {
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+  }
+
+  p {
+    color: var(--output-text);
+    font-size: 0.875rem;
+    margin-bottom: 0.75rem;
+  }
+
+  ul {
+    list-style-type: disc;
+    padding-left: 1.5rem;
+    margin-bottom: 1.5rem;
+
+    li {
+      margin-bottom: 0.5rem;
+      line-height: 1.5;
+    }
+  }
+
+  .resume-section {
+    margin-bottom: 2rem;
+  }
+
+  .resume-subsection {
+    margin-bottom: 1.5rem;
+  }
+}
+
+/* Skills component styling */
+.skills-container {
+  max-width: 650px;
+
+  h2 {
+    color: var(--terminal-green);
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--terminal-border);
+  }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 0.75rem;
+    margin-top: 1rem;
+  }
+
+  .skill-item {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 0.75rem;
+    background-color: var(--suggestion-bg);
+    border: 1px solid var(--suggestion-border);
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+
+    &:before {
+      content: "•";
+      color: var(--terminal-green);
+      font-weight: bold;
+      margin-right: 0.5rem;
+    }
+  }
+}
+
+/* Pixelated Galaxy Background */
+.galaxy-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  overflow: hidden;
+  background-color: #050505;
+  image-rendering: pixelated;
+  opacity: 0.9;
+}
+
+.galaxy {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 120vmin;
+  height: 120vmin;
+  transform: translate(-50%, -50%);
+  background-image: radial-gradient(
+      2px 2px at 20px 30px,
+      #eee,
+      rgba(0, 0, 0, 0)
+    ),
+    radial-gradient(2px 2px at 40px 70px, #fff, rgba(0, 0, 0, 0)),
+    radial-gradient(1px 1px at 90px 40px, #fff, rgba(0, 0, 0, 0)),
+    radial-gradient(2px 2px at 160px 120px, #ddd, rgba(0, 0, 0, 0)),
+    radial-gradient(1px 1px at 200px 80px, #fff, rgba(0, 0, 0, 0)),
+    radial-gradient(2px 2px at 260px 60px, #fff, rgba(0, 0, 0, 0)),
+    radial-gradient(2px 2px at 300px 100px, #fff, rgba(0, 0, 0, 0)),
+    radial-gradient(2px 2px at 360px 40px, #fff, rgba(0, 0, 0, 0)),
+    radial-gradient(2px 2px at 400px 90px, #fff, rgba(0, 0, 0, 0)),
+    radial-gradient(1px 1px at 500px 70px, #fff, rgba(0, 0, 0, 0)),
+    radial-gradient(2px 2px at 550px 30px, #fff, rgba(0, 0, 0, 0)),
+    radial-gradient(1px 1px at 600px 80px, #eee, rgba(0, 0, 0, 0)),
+    radial-gradient(2px 2px at 650px 120px, #ddd, rgba(0, 0, 0, 0)),
+    radial-gradient(1px 1px at 700px 60px, #fff, rgba(0, 0, 0, 0)),
+    radial-gradient(2px 2px at 750px 100px, #fff, rgba(0, 0, 0, 0)),
+    radial-gradient(1px 1px at 50px 180px, #fff, rgba(0, 0, 0, 0)),
+    radial-gradient(1px 1px at 150px 220px, #fff, rgba(0, 0, 0, 0)),
+    radial-gradient(1px 1px at 250px 280px, #eee, rgba(0, 0, 0, 0)),
+    radial-gradient(1px 1px at 320px 350px, #fff, rgba(0, 0, 0, 0)),
+    radial-gradient(1px 1px at 450px 420px, #fff, rgba(0, 0, 0, 0)),
+    radial-gradient(1px 1px at 520px 510px, #ddd, rgba(0, 0, 0, 0)),
+    radial-gradient(1px 1px at 620px 580px, #fff, rgba(0, 0, 0, 0)),
+    radial-gradient(1px 1px at 720px 650px, #fff, rgba(0, 0, 0, 0)),
+    /* Additional stars */
+      radial-gradient(1px 1px at 120px 250px, #fff, rgba(0, 0, 0, 0)),
+    radial-gradient(2px 2px at 220px 350px, #eee, rgba(0, 0, 0, 0)),
+    radial-gradient(1px 1px at 350px 450px, #fff, rgba(0, 0, 0, 0)),
+    radial-gradient(2px 2px at 450px 380px, #fff, rgba(0, 0, 0, 0)),
+    radial-gradient(1px 1px at 550px 430px, #eee, rgba(0, 0, 0, 0)),
+    radial-gradient(2px 2px at 660px 520px, #fff, rgba(0, 0, 0, 0)),
+    radial-gradient(1px 1px at 780px 490px, #fff, rgba(0, 0, 0, 0)),
+    radial-gradient(2px 2px at 50px 400px, #fff, rgba(0, 0, 0, 0)),
+    radial-gradient(1px 1px at 180px 470px, #eee, rgba(0, 0, 0, 0)),
+    radial-gradient(2px 2px at 280px 520px, #fff, rgba(0, 0, 0, 0)),
+    radial-gradient(1px 1px at 380px 590px, #fff, rgba(0, 0, 0, 0)),
+    radial-gradient(2px 2px at 480px 620px, #eee, rgba(0, 0, 0, 0)),
+    radial-gradient(1px 1px at 580px 590px, #fff, rgba(0, 0, 0, 0)),
+    radial-gradient(2px 2px at 680px 620px, #fff, rgba(0, 0, 0, 0)),
+    radial-gradient(1px 1px at 110px 110px, #fff, rgba(0, 0, 0, 0)),
+    radial-gradient(2px 2px at 210px 160px, #eee, rgba(0, 0, 0, 0)),
+    radial-gradient(1px 1px at 310px 210px, #fff, rgba(0, 0, 0, 0)),
+    radial-gradient(2px 2px at 410px 240px, #fff, rgba(0, 0, 0, 0)),
+    radial-gradient(1px 1px at 510px 270px, #eee, rgba(0, 0, 0, 0)),
+    radial-gradient(2px 2px at 610px 190px, #fff, rgba(0, 0, 0, 0)),
+    radial-gradient(1px 1px at 710px 220px, #fff, rgba(0, 0, 0, 0));
+  background-size: 800px 800px;
+  background-repeat: repeat;
+  animation: rotate 240s linear infinite;
+  opacity: 0.7;
+  image-rendering: pixelated;
+}
+
+.galaxy-spiral {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100vmin;
+  height: 100vmin;
+  border-radius: 50%;
+  background: radial-gradient(
+      ellipse at center,
+      rgba(63, 63, 90, 0.5) 0%,
+      rgba(0, 0, 0, 0) 70%
+    ),
+    conic-gradient(
+      from 0deg,
+      rgba(20, 20, 60, 0) 0%,
+      rgba(30, 30, 120, 0.4) 10%,
+      rgba(40, 40, 160, 0.5) 20%,
+      rgba(70, 70, 220, 0.6) 25%,
+      rgba(20, 20, 60, 0.1) 30%,
+      rgba(20, 20, 60, 0) 35%,
+      rgba(20, 20, 60, 0) 40%,
+      rgba(30, 30, 120, 0.4) 45%,
+      rgba(40, 40, 160, 0.5) 50%,
+      rgba(70, 70, 220, 0.6) 55%,
+      rgba(20, 20, 60, 0.1) 60%,
+      rgba(20, 20, 60, 0) 65%,
+      rgba(20, 20, 60, 0) 70%,
+      rgba(30, 30, 120, 0.4) 75%,
+      rgba(40, 40, 160, 0.5) 80%,
+      rgba(70, 70, 220, 0.6) 85%,
+      rgba(20, 20, 60, 0.1) 90%,
+      rgba(20, 20, 60, 0) 95%
+    );
+  transform: translate(-50%, -50%);
+  animation: rotate 180s linear infinite;
+  opacity: 0.6;
+  image-rendering: pixelated;
+  transform-origin: center;
+}
+
+/* Additional spiral arms */
+.galaxy-spiral-2 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 90vmin;
+  height: 90vmin;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 45deg,
+    rgba(20, 20, 60, 0) 0%,
+    rgba(30, 30, 120, 0.3) 10%,
+    rgba(40, 40, 160, 0.4) 20%,
+    rgba(70, 70, 220, 0.5) 25%,
+    rgba(20, 20, 60, 0.1) 30%,
+    rgba(20, 20, 60, 0) 35%,
+    rgba(20, 20, 60, 0) 40%,
+    rgba(30, 30, 120, 0.3) 45%,
+    rgba(40, 40, 160, 0.4) 50%,
+    rgba(70, 70, 220, 0.5) 55%,
+    rgba(20, 20, 60, 0.1) 60%,
+    rgba(20, 20, 60, 0) 65%,
+    rgba(20, 20, 60, 0) 70%,
+    rgba(30, 30, 120, 0.3) 75%,
+    rgba(40, 40, 160, 0.4) 80%,
+    rgba(70, 70, 220, 0.5) 85%,
+    rgba(20, 20, 60, 0.1) 90%,
+    rgba(20, 20, 60, 0) 95%
+  );
+  transform: translate(-50%, -50%);
+  animation: rotate 220s linear infinite reverse;
+  opacity: 0.4;
+  mix-blend-mode: screen;
+  image-rendering: pixelated;
+  transform-origin: center;
+}
+
+/* Pixel dust effect */
+.pixel-dust {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: radial-gradient(
+      1px 1px at 10% 10%,
+      rgba(255, 255, 255, 0.2) 0%,
+      rgba(0, 0, 0, 0) 100%
+    ),
+    radial-gradient(
+      1px 1px at 20% 20%,
+      rgba(255, 255, 255, 0.2) 0%,
+      rgba(0, 0, 0, 0) 100%
+    ),
+    radial-gradient(
+      1px 1px at 30% 30%,
+      rgba(255, 255, 255, 0.2) 0%,
+      rgba(0, 0, 0, 0) 100%
+    ),
+    radial-gradient(
+      1px 1px at 40% 40%,
+      rgba(255, 255, 255, 0.2) 0%,
+      rgba(0, 0, 0, 0) 100%
+    ),
+    radial-gradient(
+      1px 1px at 50% 50%,
+      rgba(255, 255, 255, 0.2) 0%,
+      rgba(0, 0, 0, 0) 100%
+    ),
+    radial-gradient(
+      1px 1px at 60% 60%,
+      rgba(255, 255, 255, 0.2) 0%,
+      rgba(0, 0, 0, 0) 100%
+    ),
+    radial-gradient(
+      1px 1px at 70% 70%,
+      rgba(255, 255, 255, 0.2) 0%,
+      rgba(0, 0, 0, 0) 100%
+    ),
+    radial-gradient(
+      1px 1px at 80% 80%,
+      rgba(255, 255, 255, 0.2) 0%,
+      rgba(0, 0, 0, 0) 100%
+    ),
+    radial-gradient(
+      1px 1px at 90% 90%,
+      rgba(255, 255, 255, 0.2) 0%,
+      rgba(0, 0, 0, 0) 100%
+    );
+  animation: rotate 120s linear infinite reverse;
+  opacity: 0.4;
+  image-rendering: pixelated;
+}
+
+.galaxy-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 30vmin;
+  height: 30vmin;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(220, 220, 255, 0.7) 0%,
+    rgba(180, 180, 255, 0.6) 20%,
+    rgba(120, 120, 200, 0.5) 40%,
+    rgba(80, 80, 150, 0.3) 60%,
+    rgba(0, 0, 0, 0) 80%
+  );
+  transform: translate(-50%, -50%);
+  animation: pulse 8s ease-in-out infinite;
+  opacity: 0.5;
+  image-rendering: pixelated;
+}
+
+/* Small bright center point */
+.galaxy-core {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 10vmin;
+  height: 10vmin;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255, 255, 255, 0.9) 0%,
+    rgba(220, 220, 255, 0.8) 10%,
+    rgba(200, 200, 255, 0.6) 20%,
+    rgba(150, 150, 220, 0.3) 40%,
+    rgba(0, 0, 0, 0) 60%
+  );
+  transform: translate(-50%, -50%);
+  animation: pulse-bright 5s ease-in-out infinite;
+  opacity: 0.8;
+  image-rendering: pixelated;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+}
+
+@keyframes pulse-bright {
+  0%,
+  100% {
+    opacity: 0.7;
+    transform: translate(-50%, -50%) scale(1);
   }
   50% {
-    border-color: white;
+    opacity: 0.9;
+    transform: translate(-50%, -50%) scale(1.1);
   }
+}
+
+.pixelate-effect {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAYAAABytg0kAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAABZJREFUeNpi/M/A8J+BkYGRgYEBIMAAAYgA63QAw1wAAAAASUVORK5CYII=");
+  background-repeat: repeat;
+  background-size: 2px 2px;
+  opacity: 0.15;
+  pointer-events: none;
+}
+
+@keyframes rotate {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+@keyframes pulse {
+  0%,
   100% {
-    border-color: transparent;
+    opacity: 0.25;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: translate(-50%, -50%) scale(1.2);
   }
 }
 
-.blinking-cursor {
-  // animation: blink 1s infinite;
-  // border-left: 15px solid white;
-  // caret-color: transparent;
+[data-theme="light"] .galaxy-background {
+  opacity: 0.7;
+  background-color: #0a0a14;
 }
 
-.blinking-cursor:focus {
-  outline: none;
+[data-theme="light"] .galaxy,
+[data-theme="light"] .galaxy-spiral,
+[data-theme="light"] .galaxy-spiral-2,
+[data-theme="light"] .galaxy-spiral-3,
+[data-theme="light"] .galaxy-spiral-4,
+[data-theme="light"] .spiral-stars,
+[data-theme="light"] .spiral-stars-2,
+[data-theme="light"] .spiral-stars-3,
+[data-theme="light"] .bright-stars,
+[data-theme="light"] .bright-stars-2,
+[data-theme="light"] .galaxy-center,
+[data-theme="light"] .galaxy-core,
+[data-theme="light"] .distant-stars {
+  opacity: 0.85;
+}
+
+/* Stars along the spiral arms */
+.spiral-stars {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100vmin;
+  height: 100vmin;
+  transform: translate(-50%, -50%);
+  background-image: 
+    /* Arm 1 - from center outward */ radial-gradient(
+      1px 1px at calc(50% + 10%) calc(50% + 10%),
+      #fff,
+      rgba(0, 0, 0, 0)
+    ),
+    radial-gradient(
+      2px 2px at calc(50% + 20%) calc(50% + 15%),
+      #fff,
+      rgba(0, 0, 0, 0)
+    ),
+    radial-gradient(
+      1px 1px at calc(50% + 25%) calc(50% + 20%),
+      #eee,
+      rgba(0, 0, 0, 0)
+    ),
+    radial-gradient(
+      1px 1px at calc(50% + 30%) calc(50% + 30%),
+      #fff,
+      rgba(0, 0, 0, 0)
+    ),
+    radial-gradient(
+      2px 2px at calc(50% + 35%) calc(50% + 40%),
+      #fff,
+      rgba(0, 0, 0, 0)
+    ),
+    /* Arm 2 - opposite direction */
+      radial-gradient(
+        1px 1px at calc(50% - 10%) calc(50% - 10%),
+        #fff,
+        rgba(0, 0, 0, 0)
+      ),
+    radial-gradient(
+      2px 2px at calc(50% - 20%) calc(50% - 15%),
+      #fff,
+      rgba(0, 0, 0, 0)
+    ),
+    radial-gradient(
+      1px 1px at calc(50% - 25%) calc(50% - 20%),
+      #eee,
+      rgba(0, 0, 0, 0)
+    ),
+    radial-gradient(
+      1px 1px at calc(50% - 30%) calc(50% - 30%),
+      #fff,
+      rgba(0, 0, 0, 0)
+    ),
+    radial-gradient(
+      2px 2px at calc(50% - 35%) calc(50% - 40%),
+      #fff,
+      rgba(0, 0, 0, 0)
+    ),
+    /* Arm 3 */
+      radial-gradient(
+        1px 1px at calc(50% - 10%) calc(50% + 10%),
+        #fff,
+        rgba(0, 0, 0, 0)
+      ),
+    radial-gradient(
+      2px 2px at calc(50% - 15%) calc(50% + 20%),
+      #fff,
+      rgba(0, 0, 0, 0)
+    ),
+    radial-gradient(
+      1px 1px at calc(50% - 20%) calc(50% + 25%),
+      #eee,
+      rgba(0, 0, 0, 0)
+    ),
+    radial-gradient(
+      1px 1px at calc(50% - 30%) calc(50% + 30%),
+      #fff,
+      rgba(0, 0, 0, 0)
+    ),
+    radial-gradient(
+      2px 2px at calc(50% - 40%) calc(50% + 35%),
+      #fff,
+      rgba(0, 0, 0, 0)
+    ),
+    /* Arm 4 */
+      radial-gradient(
+        1px 1px at calc(50% + 10%) calc(50% - 10%),
+        #fff,
+        rgba(0, 0, 0, 0)
+      ),
+    radial-gradient(
+      2px 2px at calc(50% + 15%) calc(50% - 20%),
+      #fff,
+      rgba(0, 0, 0, 0)
+    ),
+    radial-gradient(
+      1px 1px at calc(50% + 20%) calc(50% - 25%),
+      #eee,
+      rgba(0, 0, 0, 0)
+    ),
+    radial-gradient(
+      1px 1px at calc(50% + 30%) calc(50% - 30%),
+      #fff,
+      rgba(0, 0, 0, 0)
+    ),
+    radial-gradient(
+      2px 2px at calc(50% + 40%) calc(50% - 35%),
+      #fff,
+      rgba(0, 0, 0, 0)
+    ),
+    /* Extend arm 1 further */
+      radial-gradient(
+        1px 1px at calc(50% + 35%) calc(50% + 45%),
+        #fff,
+        rgba(0, 0, 0, 0)
+      ),
+    radial-gradient(
+      2px 2px at calc(50% + 40%) calc(50% + 48%),
+      #eee,
+      rgba(0, 0, 0, 0)
+    ),
+    radial-gradient(
+      1px 1px at calc(50% + 43%) calc(50% + 50%),
+      #fff,
+      rgba(0, 0, 0, 0)
+    ),
+    /* Extend arm 2 further */
+      radial-gradient(
+        1px 1px at calc(50% - 35%) calc(50% - 45%),
+        #fff,
+        rgba(0, 0, 0, 0)
+      ),
+    radial-gradient(
+      2px 2px at calc(50% - 40%) calc(50% - 48%),
+      #eee,
+      rgba(0, 0, 0, 0)
+    ),
+    radial-gradient(
+      1px 1px at calc(50% - 43%) calc(50% - 50%),
+      #fff,
+      rgba(0, 0, 0, 0)
+    ),
+    /* Extend arm 3 further */
+      radial-gradient(
+        1px 1px at calc(50% - 45%) calc(50% + 35%),
+        #fff,
+        rgba(0, 0, 0, 0)
+      ),
+    radial-gradient(
+      2px 2px at calc(50% - 48%) calc(50% + 40%),
+      #eee,
+      rgba(0, 0, 0, 0)
+    ),
+    radial-gradient(
+      1px 1px at calc(50% - 50%) calc(50% + 43%),
+      #fff,
+      rgba(0, 0, 0, 0)
+    ),
+    /* Extend arm 4 further */
+      radial-gradient(
+        1px 1px at calc(50% + 45%) calc(50% - 35%),
+        #fff,
+        rgba(0, 0, 0, 0)
+      ),
+    radial-gradient(
+      2px 2px at calc(50% + 48%) calc(50% - 40%),
+      #eee,
+      rgba(0, 0, 0, 0)
+    ),
+    radial-gradient(
+      1px 1px at calc(50% + 50%) calc(50% - 43%),
+      #fff,
+      rgba(0, 0, 0, 0)
+    );
+
+  animation: rotate 200s linear infinite;
+  opacity: 0.7;
+  image-rendering: pixelated;
+}
+
+/* Stars along the spiral arms - second layer rotating at different speed */
+.spiral-stars-2 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 120vmin;
+  height: 120vmin;
+  transform: translate(-50%, -50%) rotate(45deg);
+  background-image: 
+    /* Arm 1 - from center outward */ radial-gradient(
+      2px 2px at calc(50% + 8%) calc(50% + 12%),
+      #eee,
+      rgba(0, 0, 0, 0)
+    ),
+    radial-gradient(
+      1px 1px at calc(50% + 16%) calc(50% + 18%),
+      #fff,
+      rgba(0, 0, 0, 0)
+    ),
+    radial-gradient(
+      2px 2px at calc(50% + 22%) calc(50% + 24%),
+      #fff,
+      rgba(0, 0, 0, 0)
+    ),
+    radial-gradient(
+      1px 1px at calc(50% + 28%) calc(50% + 32%),
+      #eee,
+      rgba(0, 0, 0, 0)
+    ),
+    radial-gradient(
+      2px 2px at calc(50% + 32%) calc(50% + 38%),
+      #fff,
+      rgba(0, 0, 0, 0)
+    ),
+    /* Arm 2 - opposite direction */
+      radial-gradient(
+        2px 2px at calc(50% - 8%) calc(50% - 12%),
+        #eee,
+        rgba(0, 0, 0, 0)
+      ),
+    radial-gradient(
+      1px 1px at calc(50% - 16%) calc(50% - 18%),
+      #fff,
+      rgba(0, 0, 0, 0)
+    ),
+    radial-gradient(
+      2px 2px at calc(50% - 22%) calc(50% - 24%),
+      #fff,
+      rgba(0, 0, 0, 0)
+    ),
+    radial-gradient(
+      1px 1px at calc(50% - 28%) calc(50% - 32%),
+      #eee,
+      rgba(0, 0, 0, 0)
+    ),
+    radial-gradient(
+      2px 2px at calc(50% - 32%) calc(50% - 38%),
+      #fff,
+      rgba(0, 0, 0, 0)
+    ),
+    /* Arm 3 */
+      radial-gradient(
+        2px 2px at calc(50% - 12%) calc(50% + 8%),
+        #eee,
+        rgba(0, 0, 0, 0)
+      ),
+    radial-gradient(
+      1px 1px at calc(50% - 18%) calc(50% + 16%),
+      #fff,
+      rgba(0, 0, 0, 0)
+    ),
+    radial-gradient(
+      2px 2px at calc(50% - 24%) calc(50% + 22%),
+      #fff,
+      rgba(0, 0, 0, 0)
+    ),
+    radial-gradient(
+      1px 1px at calc(50% - 32%) calc(50% + 28%),
+      #eee,
+      rgba(0, 0, 0, 0)
+    ),
+    radial-gradient(
+      2px 2px at calc(50% - 38%) calc(50% + 32%),
+      #fff,
+      rgba(0, 0, 0, 0)
+    ),
+    /* Arm 4 */
+      radial-gradient(
+        2px 2px at calc(50% + 12%) calc(50% - 8%),
+        #eee,
+        rgba(0, 0, 0, 0)
+      ),
+    radial-gradient(
+      1px 1px at calc(50% + 18%) calc(50% - 16%),
+      #fff,
+      rgba(0, 0, 0, 0)
+    ),
+    radial-gradient(
+      2px 2px at calc(50% + 24%) calc(50% - 22%),
+      #fff,
+      rgba(0, 0, 0, 0)
+    ),
+    radial-gradient(
+      1px 1px at calc(50% + 32%) calc(50% - 28%),
+      #eee,
+      rgba(0, 0, 0, 0)
+    ),
+    radial-gradient(
+      2px 2px at calc(50% + 38%) calc(50% - 32%),
+      #fff,
+      rgba(0, 0, 0, 0)
+    );
+
+  animation: rotate 260s linear infinite reverse;
+  opacity: 0.5;
+  image-rendering: pixelated;
+}
+
+/* Additional spiral arms - 3rd layer */
+.galaxy-spiral-3 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 110vmin;
+  height: 110vmin;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 22.5deg,
+    rgba(20, 20, 60, 0) 0%,
+    rgba(30, 30, 120, 0.3) 10%,
+    rgba(40, 40, 160, 0.4) 15%,
+    rgba(70, 70, 220, 0.5) 18%,
+    rgba(20, 20, 60, 0.1) 21%,
+    rgba(20, 20, 60, 0) 24%,
+    rgba(20, 20, 60, 0) 27%,
+    rgba(30, 30, 120, 0.3) 30%,
+    rgba(40, 40, 160, 0.4) 33%,
+    rgba(70, 70, 220, 0.5) 36%,
+    rgba(20, 20, 60, 0.1) 39%,
+    rgba(20, 20, 60, 0) 42%,
+    rgba(20, 20, 60, 0) 45%,
+    rgba(30, 30, 120, 0.3) 48%,
+    rgba(40, 40, 160, 0.4) 51%,
+    rgba(70, 70, 220, 0.5) 54%,
+    rgba(20, 20, 60, 0.1) 57%,
+    rgba(20, 20, 60, 0) 60%,
+    rgba(20, 20, 60, 0) 63%,
+    rgba(30, 30, 120, 0.3) 66%,
+    rgba(40, 40, 160, 0.4) 69%,
+    rgba(70, 70, 220, 0.5) 72%,
+    rgba(20, 20, 60, 0.1) 75%,
+    rgba(20, 20, 60, 0) 78%,
+    rgba(20, 20, 60, 0) 81%,
+    rgba(30, 30, 120, 0.3) 84%,
+    rgba(40, 40, 160, 0.4) 87%,
+    rgba(70, 70, 220, 0.5) 90%,
+    rgba(20, 20, 60, 0.1) 93%,
+    rgba(20, 20, 60, 0) 96%
+  );
+  transform: translate(-50%, -50%);
+  animation: rotate 290s linear infinite;
+  opacity: 0.45;
+  mix-blend-mode: screen;
+  image-rendering: pixelated;
+  transform-origin: center;
+}
+
+/* Additional spiral arms - 4th layer with even more arms */
+.galaxy-spiral-4 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 95vmin;
+  height: 95vmin;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 10deg,
+    rgba(20, 20, 60, 0) 0%,
+    rgba(30, 30, 120, 0.3) 5%,
+    rgba(40, 40, 160, 0.4) 7%,
+    rgba(70, 70, 220, 0.5) 9%,
+    rgba(20, 20, 60, 0.1) 11%,
+    rgba(20, 20, 60, 0) 13%,
+    rgba(20, 20, 60, 0) 15%,
+    rgba(30, 30, 120, 0.3) 17%,
+    rgba(40, 40, 160, 0.4) 19%,
+    rgba(70, 70, 220, 0.5) 21%,
+    rgba(20, 20, 60, 0.1) 23%,
+    rgba(20, 20, 60, 0) 25%,
+    rgba(20, 20, 60, 0) 27%,
+    rgba(30, 30, 120, 0.3) 29%,
+    rgba(40, 40, 160, 0.4) 31%,
+    rgba(70, 70, 220, 0.5) 33%,
+    rgba(20, 20, 60, 0.1) 35%,
+    rgba(20, 20, 60, 0) 37%,
+    rgba(20, 20, 60, 0) 39%,
+    rgba(30, 30, 120, 0.3) 41%,
+    rgba(40, 40, 160, 0.4) 43%,
+    rgba(70, 70, 220, 0.5) 45%,
+    rgba(20, 20, 60, 0.1) 47%,
+    rgba(20, 20, 60, 0) 49%,
+    rgba(20, 20, 60, 0) 51%,
+    rgba(30, 30, 120, 0.3) 53%,
+    rgba(40, 40, 160, 0.4) 55%,
+    rgba(70, 70, 220, 0.5) 57%,
+    rgba(20, 20, 60, 0.1) 59%,
+    rgba(20, 20, 60, 0) 61%,
+    rgba(20, 20, 60, 0) 63%,
+    rgba(30, 30, 120, 0.3) 65%,
+    rgba(40, 40, 160, 0.4) 67%,
+    rgba(70, 70, 220, 0.5) 69%,
+    rgba(20, 20, 60, 0.1) 71%,
+    rgba(20, 20, 60, 0) 73%,
+    rgba(20, 20, 60, 0) 75%,
+    rgba(30, 30, 120, 0.3) 77%,
+    rgba(40, 40, 160, 0.4) 79%,
+    rgba(70, 70, 220, 0.5) 81%,
+    rgba(20, 20, 60, 0.1) 83%,
+    rgba(20, 20, 60, 0) 85%,
+    rgba(20, 20, 60, 0) 87%,
+    rgba(30, 30, 120, 0.3) 89%,
+    rgba(40, 40, 160, 0.4) 91%,
+    rgba(70, 70, 220, 0.5) 93%,
+    rgba(20, 20, 60, 0.1) 95%,
+    rgba(20, 20, 60, 0) 97%,
+    rgba(20, 20, 60, 0) 99%
+  );
+  transform: translate(-50%, -50%);
+  animation: rotate 320s linear infinite reverse;
+  opacity: 0.4;
+  mix-blend-mode: screen;
+  image-rendering: pixelated;
+  transform-origin: center;
+}
+
+/* Additional stars - densely packed around arms */
+.spiral-stars-3 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 115vmin;
+  height: 115vmin;
+  transform: translate(-50%, -50%) rotate(15deg);
+  background-image: 
+    /* Arm 1 extensions */ radial-gradient(
+      1px 1px at calc(50% + 15%) calc(50% + 15%),
+      #fff,
+      rgba(0, 0, 0, 0)
+    ),
+    radial-gradient(
+      1px 1px at calc(50% + 18%) calc(50% + 18%),
+      #eee,
+      rgba(0, 0, 0, 0)
+    ),
+    radial-gradient(
+      1px 1px at calc(50% + 22%) calc(50% + 22%),
+      #fff,
+      rgba(0, 0, 0, 0)
+    ),
+    radial-gradient(
+      1px 1px at calc(50% + 26%) calc(50% + 26%),
+      #eee,
+      rgba(0, 0, 0, 0)
+    ),
+    radial-gradient(
+      1px 1px at calc(50% + 30%) calc(50% + 35%),
+      #fff,
+      rgba(0, 0, 0, 0)
+    ),
+    radial-gradient(
+      1px 1px at calc(50% + 38%) calc(50% + 42%),
+      #eee,
+      rgba(0, 0, 0, 0)
+    ),
+    radial-gradient(
+      1px 1px at calc(50% + 44%) calc(50% + 52%),
+      #fff,
+      rgba(0, 0, 0, 0)
+    ),
+    radial-gradient(
+      1px 1px at calc(50% + 50%) calc(50% + 58%),
+      #eee,
+      rgba(0, 0, 0, 0)
+    ),
+    /* Arm 2 extensions */
+      radial-gradient(
+        1px 1px at calc(50% - 15%) calc(50% - 15%),
+        #fff,
+        rgba(0, 0, 0, 0)
+      ),
+    radial-gradient(
+      1px 1px at calc(50% - 18%) calc(50% - 18%),
+      #eee,
+      rgba(0, 0, 0, 0)
+    ),
+    radial-gradient(
+      1px 1px at calc(50% - 22%) calc(50% - 22%),
+      #fff,
+      rgba(0, 0, 0, 0)
+    ),
+    radial-gradient(
+      1px 1px at calc(50% - 26%) calc(50% - 26%),
+      #eee,
+      rgba(0, 0, 0, 0)
+    ),
+    radial-gradient(
+      1px 1px at calc(50% - 30%) calc(50% - 35%),
+      #fff,
+      rgba(0, 0, 0, 0)
+    ),
+    radial-gradient(
+      1px 1px at calc(50% - 38%) calc(50% - 42%),
+      #eee,
+      rgba(0, 0, 0, 0)
+    ),
+    radial-gradient(
+      1px 1px at calc(50% - 44%) calc(50% - 52%),
+      #fff,
+      rgba(0, 0, 0, 0)
+    ),
+    radial-gradient(
+      1px 1px at calc(50% - 50%) calc(50% - 58%),
+      #eee,
+      rgba(0, 0, 0, 0)
+    ),
+    /* Arm 3 extensions */
+      radial-gradient(
+        1px 1px at calc(50% - 15%) calc(50% + 15%),
+        #fff,
+        rgba(0, 0, 0, 0)
+      ),
+    radial-gradient(
+      1px 1px at calc(50% - 18%) calc(50% + 18%),
+      #eee,
+      rgba(0, 0, 0, 0)
+    ),
+    radial-gradient(
+      1px 1px at calc(50% - 22%) calc(50% + 22%),
+      #fff,
+      rgba(0, 0, 0, 0)
+    ),
+    radial-gradient(
+      1px 1px at calc(50% - 26%) calc(50% + 26%),
+      #eee,
+      rgba(0, 0, 0, 0)
+    ),
+    radial-gradient(
+      1px 1px at calc(50% - 35%) calc(50% + 30%),
+      #fff,
+      rgba(0, 0, 0, 0)
+    ),
+    radial-gradient(
+      1px 1px at calc(50% - 42%) calc(50% + 38%),
+      #eee,
+      rgba(0, 0, 0, 0)
+    ),
+    radial-gradient(
+      1px 1px at calc(50% - 52%) calc(50% + 44%),
+      #fff,
+      rgba(0, 0, 0, 0)
+    ),
+    radial-gradient(
+      1px 1px at calc(50% - 58%) calc(50% + 50%),
+      #eee,
+      rgba(0, 0, 0, 0)
+    ),
+    /* Arm 4 extensions */
+      radial-gradient(
+        1px 1px at calc(50% + 15%) calc(50% - 15%),
+        #fff,
+        rgba(0, 0, 0, 0)
+      ),
+    radial-gradient(
+      1px 1px at calc(50% + 18%) calc(50% - 18%),
+      #eee,
+      rgba(0, 0, 0, 0)
+    ),
+    radial-gradient(
+      1px 1px at calc(50% + 22%) calc(50% - 22%),
+      #fff,
+      rgba(0, 0, 0, 0)
+    ),
+    radial-gradient(
+      1px 1px at calc(50% + 26%) calc(50% - 26%),
+      #eee,
+      rgba(0, 0, 0, 0)
+    ),
+    radial-gradient(
+      1px 1px at calc(50% + 35%) calc(50% - 30%),
+      #fff,
+      rgba(0, 0, 0, 0)
+    ),
+    radial-gradient(
+      1px 1px at calc(50% + 42%) calc(50% - 38%),
+      #eee,
+      rgba(0, 0, 0, 0)
+    ),
+    radial-gradient(
+      1px 1px at calc(50% + 52%) calc(50% - 44%),
+      #fff,
+      rgba(0, 0, 0, 0)
+    ),
+    radial-gradient(
+      1px 1px at calc(50% + 58%) calc(50% - 50%),
+      #eee,
+      rgba(0, 0, 0, 0)
+    ),
+    /* More stars in between arms */
+      radial-gradient(
+        1px 1px at calc(50% + 8%) calc(50% + 28%),
+        #fff,
+        rgba(0, 0, 0, 0)
+      ),
+    radial-gradient(
+      1px 1px at calc(50% + 28%) calc(50% + 8%),
+      #eee,
+      rgba(0, 0, 0, 0)
+    ),
+    radial-gradient(
+      1px 1px at calc(50% - 8%) calc(50% - 28%),
+      #fff,
+      rgba(0, 0, 0, 0)
+    ),
+    radial-gradient(
+      1px 1px at calc(50% - 28%) calc(50% - 8%),
+      #eee,
+      rgba(0, 0, 0, 0)
+    ),
+    radial-gradient(
+      1px 1px at calc(50% + 8%) calc(50% - 28%),
+      #fff,
+      rgba(0, 0, 0, 0)
+    ),
+    radial-gradient(
+      1px 1px at calc(50% + 28%) calc(50% - 8%),
+      #eee,
+      rgba(0, 0, 0, 0)
+    ),
+    radial-gradient(
+      1px 1px at calc(50% - 8%) calc(50% + 28%),
+      #fff,
+      rgba(0, 0, 0, 0)
+    ),
+    radial-gradient(
+      1px 1px at calc(50% - 28%) calc(50% + 8%),
+      #eee,
+      rgba(0, 0, 0, 0)
+    );
+
+  animation: rotate 230s linear infinite;
+  opacity: 0.6;
+  image-rendering: pixelated;
+}
+
+/* Additional stars scattered throughout the outer regions */
+.distant-stars {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 150vmin;
+  height: 150vmin;
+  transform: translate(-50%, -50%);
+  background-image: radial-gradient(1px 1px at 5% 15%, #fff, rgba(0, 0, 0, 0)),
+    radial-gradient(1px 1px at 10% 25%, #eee, rgba(0, 0, 0, 0)),
+    radial-gradient(1px 1px at 15% 5%, #fff, rgba(0, 0, 0, 0)),
+    radial-gradient(1px 1px at 20% 30%, #eee, rgba(0, 0, 0, 0)),
+    radial-gradient(1px 1px at 25% 10%, #fff, rgba(0, 0, 0, 0)),
+    radial-gradient(1px 1px at 30% 35%, #eee, rgba(0, 0, 0, 0)),
+    radial-gradient(1px 1px at 35% 15%, #fff, rgba(0, 0, 0, 0)),
+    radial-gradient(1px 1px at 40% 40%, #eee, rgba(0, 0, 0, 0)),
+    radial-gradient(1px 1px at 45% 20%, #fff, rgba(0, 0, 0, 0)),
+    radial-gradient(1px 1px at 50% 45%, #eee, rgba(0, 0, 0, 0)),
+    radial-gradient(1px 1px at 55% 25%, #fff, rgba(0, 0, 0, 0)),
+    radial-gradient(1px 1px at 60% 50%, #eee, rgba(0, 0, 0, 0)),
+    radial-gradient(1px 1px at 65% 30%, #fff, rgba(0, 0, 0, 0)),
+    radial-gradient(1px 1px at 70% 55%, #eee, rgba(0, 0, 0, 0)),
+    radial-gradient(1px 1px at 75% 35%, #fff, rgba(0, 0, 0, 0)),
+    radial-gradient(1px 1px at 80% 60%, #eee, rgba(0, 0, 0, 0)),
+    radial-gradient(1px 1px at 85% 40%, #fff, rgba(0, 0, 0, 0)),
+    radial-gradient(1px 1px at 90% 65%, #eee, rgba(0, 0, 0, 0)),
+    radial-gradient(1px 1px at 95% 45%, #fff, rgba(0, 0, 0, 0)),
+    radial-gradient(1px 1px at 5% 70%, #eee, rgba(0, 0, 0, 0)),
+    radial-gradient(1px 1px at 10% 50%, #fff, rgba(0, 0, 0, 0)),
+    radial-gradient(1px 1px at 15% 75%, #eee, rgba(0, 0, 0, 0)),
+    radial-gradient(1px 1px at 20% 55%, #fff, rgba(0, 0, 0, 0)),
+    radial-gradient(1px 1px at 25% 80%, #eee, rgba(0, 0, 0, 0)),
+    radial-gradient(1px 1px at 30% 60%, #fff, rgba(0, 0, 0, 0)),
+    radial-gradient(1px 1px at 35% 85%, #eee, rgba(0, 0, 0, 0)),
+    radial-gradient(1px 1px at 40% 65%, #fff, rgba(0, 0, 0, 0)),
+    radial-gradient(1px 1px at 45% 90%, #eee, rgba(0, 0, 0, 0)),
+    radial-gradient(1px 1px at 50% 70%, #fff, rgba(0, 0, 0, 0)),
+    radial-gradient(1px 1px at 55% 95%, #eee, rgba(0, 0, 0, 0)),
+    radial-gradient(1px 1px at 60% 75%, #fff, rgba(0, 0, 0, 0)),
+    radial-gradient(1px 1px at 65% 85%, #eee, rgba(0, 0, 0, 0)),
+    radial-gradient(1px 1px at 70% 80%, #fff, rgba(0, 0, 0, 0)),
+    radial-gradient(1px 1px at 75% 85%, #eee, rgba(0, 0, 0, 0)),
+    radial-gradient(1px 1px at 80% 85%, #fff, rgba(0, 0, 0, 0)),
+    radial-gradient(1px 1px at 85% 90%, #eee, rgba(0, 0, 0, 0)),
+    radial-gradient(1px 1px at 90% 90%, #fff, rgba(0, 0, 0, 0)),
+    radial-gradient(1px 1px at 95% 95%, #eee, rgba(0, 0, 0, 0));
+
+  animation: rotate 300s linear infinite reverse;
+  opacity: 0.6;
+  image-rendering: pixelated;
+}
+
+/* Brighter stars */
+.bright-stars {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 130vmin;
+  height: 130vmin;
+  transform: translate(-50%, -50%);
+  background-image: radial-gradient(2px 2px at 15% 25%, #fff, rgba(0, 0, 0, 0)),
+    radial-gradient(2px 2px at 25% 35%, #fff, rgba(0, 0, 0, 0)),
+    radial-gradient(2px 2px at 35% 15%, #fff, rgba(0, 0, 0, 0)),
+    radial-gradient(2px 2px at 45% 65%, #fff, rgba(0, 0, 0, 0)),
+    radial-gradient(2px 2px at 55% 25%, #fff, rgba(0, 0, 0, 0)),
+    radial-gradient(2px 2px at 65% 75%, #fff, rgba(0, 0, 0, 0)),
+    radial-gradient(2px 2px at 75% 35%, #fff, rgba(0, 0, 0, 0)),
+    radial-gradient(2px 2px at 85% 85%, #fff, rgba(0, 0, 0, 0)),
+    radial-gradient(2px 2px at 95% 45%, #fff, rgba(0, 0, 0, 0)),
+    radial-gradient(2px 2px at 17% 57%, #fff, rgba(0, 0, 0, 0)),
+    radial-gradient(2px 2px at 27% 67%, #fff, rgba(0, 0, 0, 0)),
+    radial-gradient(2px 2px at 37% 47%, #fff, rgba(0, 0, 0, 0)),
+    radial-gradient(2px 2px at 47% 37%, #fff, rgba(0, 0, 0, 0)),
+    radial-gradient(2px 2px at 57% 57%, #fff, rgba(0, 0, 0, 0)),
+    radial-gradient(2px 2px at 67% 27%, #fff, rgba(0, 0, 0, 0)),
+    radial-gradient(2px 2px at 77% 67%, #fff, rgba(0, 0, 0, 0));
+
+  animation: twinkle 8s ease-in-out infinite alternate;
+  opacity: 0.7;
+  image-rendering: pixelated;
+}
+
+/* Super bright stars with glow effect */
+.bright-stars-2 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 140vmin;
+  height: 140vmin;
+  transform: translate(-50%, -50%);
+  background-image: radial-gradient(
+      3px 3px at 30% 30%,
+      rgba(255, 255, 255, 0.9),
+      rgba(0, 0, 0, 0) 50%
+    ),
+    radial-gradient(
+      3px 3px at 70% 70%,
+      rgba(255, 255, 255, 0.9),
+      rgba(0, 0, 0, 0) 50%
+    ),
+    radial-gradient(
+      3px 3px at 30% 70%,
+      rgba(255, 255, 255, 0.9),
+      rgba(0, 0, 0, 0) 50%
+    ),
+    radial-gradient(
+      3px 3px at 70% 30%,
+      rgba(255, 255, 255, 0.9),
+      rgba(0, 0, 0, 0) 50%
+    ),
+    radial-gradient(
+      3px 3px at 50% 20%,
+      rgba(255, 255, 255, 0.9),
+      rgba(0, 0, 0, 0) 50%
+    ),
+    radial-gradient(
+      3px 3px at 80% 50%,
+      rgba(255, 255, 255, 0.9),
+      rgba(0, 0, 0, 0) 50%
+    );
+
+  animation: twinkle-bright 5s ease-in-out infinite alternate;
+  opacity: 0.8;
+  image-rendering: pixelated;
+}
+
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 0.9;
+  }
+}
+
+@keyframes twinkle-bright {
+  0%,
+  100% {
+    opacity: 0.6;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.05);
+  }
+}
+
+[data-theme="light"] .terminal-window,
+[data-theme="light"] .command-text,
+[data-theme="light"] .output-text,
+[data-theme="light"] .prompt-sign {
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
+}
+
+[data-theme="light"] .terminal-content-wrapper,
+[data-theme="light"] .terminal-input-area,
+[data-theme="light"] .loading-content {
+  backdrop-filter: blur(3px);
 }

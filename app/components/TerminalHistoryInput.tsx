@@ -16,9 +16,16 @@ const TerminalHistoryInput: React.FC<TerminalHistoryInputProps> = ({
   }
 
   const result = executeCommand(command);
+
   return (
-    <div className="flex p-2">
-      {typeof result === "function" ? result({}) : result}
+    <div className="flex flex-col p-2">
+      <div className="flex items-center mb-1">
+        <span className="prompt-sign mr-2">$</span>
+        <span className="command-text">{command}</span>
+      </div>
+      <div className="pl-4 output-text">
+        {typeof result === "function" ? result({}) : result}
+      </div>
     </div>
   );
 };
