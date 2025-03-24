@@ -1556,3 +1556,21 @@ body {
 [data-theme="light"] .loading-content {
   backdrop-filter: blur(3px);
 }
+
+.surprise {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, calc(-50% - 200px));
+  font-size: 2rem;
+  color: #ff69b4;
+  text-shadow: 0 0 10px #ff69b4;
+  opacity: 0;
+  pointer-events: none;
+  animation: float 3s ease-in-out infinite;
+  z-index: 1000;
+  font-family: "Comic Sans MS", cursive;
+  text-align: center;
+  white-space: nowrap;
+  filter: drop-shadow(0 0 5px rgba(255, 105, 180, 0.5));
+}

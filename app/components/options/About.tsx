@@ -21,22 +21,23 @@ const About: React.FC = () => {
           <h1 className="text-xl md:text-2xl mb-3">About Me</h1>
           <p className="mb-2">
             I&apos;m a seasoned Web & Mobile Developer with a passion for
-            crafting engaging and efficient applications. At Infinite Red, I
+            crafting engaging and performant applications. At Infinite Red, I
             focus on leveraging the power of React Native, TypeScript, and AI to
             deliver exceptional user experiences.
           </p>
         </div>
       </div>
       <p className="mb-2">
-        With over 8 years of software development experience, I&apos;ve worked
+        With over 9 years of software development experience, I&apos;ve worked
         on a variety of projects ranging from financial applications to mobile
         apps for Fortune 5 companies. I enjoy solving complex problems and
         finding elegant solutions through clean, maintainable code.
       </p>
       <p>
         When I&apos;m not coding, you&apos;ll find me training for distance
-        running, language learning and hanging out with my amazing family in the
-        great outdoors!
+        running, language learning (Die Deutsche Sprache ist am besten!) and
+        hanging out with my amazing family in the great outdoors! If you&apos;d
+        like to connect, please reach out on LinkedIn or email!
       </p>
     </div>
   );

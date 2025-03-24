@@ -76,7 +76,7 @@ export default function Home() {
       !isLoading
     ) {
       const timer = setTimeout(() => {
-        if (Date.now() - lastInputTime >= 8000) {
+        if (Date.now() - lastInputTime >= 3000) {
           setTerminalHistory(["help"]);
         }
       }, 8000);
