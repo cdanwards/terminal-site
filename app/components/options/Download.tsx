@@ -27,10 +27,6 @@ const Download: React.FC = () => {
           Download Resume
         </a>
       </div>
-      <p className="mt-4 text-sm text-gray-400">
-        Note: Make sure to place a file named &quot;dan-edwards-resume.pdf&quot;
-        in your public directory.
-      </p>
     </div>
   );
 };
