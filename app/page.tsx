@@ -87,13 +87,13 @@ export default function Home() {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center p-4 sm:p-8">
-      <div className="galaxy-background">
+      {/* <div className="galaxy-background">
         <div className="galaxy"></div>
         <div className="galaxy-spiral"></div>
         <div className="galaxy-center"></div>
         <div className="pixel-dust"></div>
         <div className="pixelate-effect"></div>
-      </div>
+      </div> */}
       <div className="z-10 w-full max-w-5xl h-[90vh] flex flex-col font-mono text-sm border rounded-md shadow-lg overflow-hidden terminal-window">
         <TerminalHeader />
 
@@ -136,6 +136,14 @@ export default function Home() {
         </div>
 
         <TerminalFooter />
+      </div>
+      <div className="fixed inset-0 -z-10 flex">
+        <div className="w-1/6 bg-deep-teal"></div>
+        <div className="w-1/6 bg-turquoise-teal"></div>
+        <div className="w-1/6 bg-light-gray-blue"></div>
+        <div className="w-1/6 bg-muted-magenta"></div>
+        <div className="w-1/6 bg-dusty-brown"></div>
+        <div className="w-1/6 bg-mustard-gold"></div>
       </div>
     </main>
   );

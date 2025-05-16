@@ -37,6 +37,12 @@ const config: Config = {
         "terminal-blue": "var(--terminal-blue)",
         "terminal-bg": "var(--terminal-bg)",
         "terminal-text": "var(--terminal-text)",
+        "deep-teal": "#143433",
+        "turquoise-teal": "#2B8BA5",
+        "light-gray-blue": "#A7B1B0",
+        "muted-magenta": "#853E56",
+        "dusty-brown": "#774641",
+        "mustard-gold": "#9C7643",
       },
       ringColor: {
         "terminal-green": "var(--terminal-green)",
