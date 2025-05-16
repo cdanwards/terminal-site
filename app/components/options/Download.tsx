@@ -8,7 +8,7 @@ const Download: React.FC = () => {
         <a
           href="/dan-edwards-resume.pdf"
           download
-          className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors inline-flex items-center"
+          className="px-4 py-2 bg-deep-teal text-white rounded-md hover:bg-green-700 transition-colors inline-flex items-center"
         >
           <svg
             className="w-4 h-4 mr-2"

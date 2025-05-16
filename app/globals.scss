@@ -13,43 +13,43 @@
 [data-theme="light"] {
   --terminal-bg: rgba(240, 240, 240, 0.65);
   --terminal-text: #333333;
-  --terminal-green: #2e7d32;
-  --terminal-blue: #1565c0;
+  --terminal-green: #2b8ba5;
+  --terminal-blue: #853e56;
   --terminal-header-bg: rgba(224, 224, 224, 0.7);
   --terminal-border: #b0b0b0;
   --command-text: #111111;
   --output-text: #333333;
-  --prompt-color: #2e7d32;
+  --prompt-color: #9c7643;
   --suggestion-bg: rgba(224, 224, 224, 0.9);
   --suggestion-border: #b0b0b0;
   --suggestion-hover: #d0d0d0;
   --code-bg: rgba(216, 216, 216, 0.7);
   --project-card-bg: rgba(230, 230, 230, 0.7);
   --project-card-border: #cccccc;
-  --project-title: #2e7d32;
+  --project-title: #9c7643;
   --project-tag-bg: #d0d0d0;
-  --project-link: #1565c0;
+  --project-link: #853e56;
 }
 
 [data-theme="dark"] {
   --terminal-bg: rgba(26, 26, 26, 0.65);
   --terminal-text: #f0f0f0;
-  --terminal-green: #4caf50;
-  --terminal-blue: #2196f3;
+  --terminal-green: #9c7643;
+  --terminal-blue: #853e56;
   --terminal-header-bg: rgba(45, 45, 45, 0.7);
   --terminal-border: #3e3e3e;
   --command-text: #ffffff;
   --output-text: #cccccc;
-  --prompt-color: #4caf50;
+  --prompt-color: #9c7643;
   --suggestion-bg: rgba(45, 45, 45, 0.9);
   --suggestion-border: #3e3e3e;
   --suggestion-hover: #3d3d3d;
   --code-bg: rgba(42, 42, 42, 0.7);
   --project-card-bg: rgba(31, 31, 31, 0.7);
   --project-card-border: #3e3e3e;
-  --project-title: #4caf50;
+  --project-title: #9c7643;
   --project-tag-bg: rgba(45, 45, 45, 0.7);
-  --project-link: #2196f3;
+  --project-link: #853e56;
 }
 
 @media (prefers-color-scheme: dark) {

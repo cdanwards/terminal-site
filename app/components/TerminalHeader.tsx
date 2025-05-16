@@ -6,9 +6,9 @@ const TerminalHeader: React.FC = () => {
       <div className="flex items-center justify-between">
         <div className="flex items-center">
           <div className="flex space-x-2 mr-4">
-            <div className="w-3 h-3 bg-red-500 rounded-full"></div>
-            <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
-            <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+            <div className="w-3 h-3 bg-muted-magenta rounded-full"></div>
+            <div className="w-3 h-3 bg-turquoise-teal rounded-full"></div>
+            <div className="w-3 h-3 bg-mustard-gold rounded-full"></div>
           </div>
           <h1 className="command-text font-bold">Dan Edwards</h1>
         </div>

@@ -102,11 +102,11 @@ export default function Home() {
             <div className="p-4 absolute inset-0 flex flex-col loading-content">
               <div className="flex items-center space-x-2">
                 <div className="flex items-center space-x-1">
-                  <div className="h-2 w-2 bg-green-400 rounded-full pulse-dot"></div>
-                  <div className="h-2 w-2 bg-green-400 rounded-full pulse-dot pulse-dot-2"></div>
-                  <div className="h-2 w-2 bg-green-400 rounded-full pulse-dot pulse-dot-3"></div>
+                  <div className="h-2 w-2 bg-turquoise-teal rounded-full pulse-dot"></div>
+                  <div className="h-2 w-2 bg-turquoise-teal rounded-full pulse-dot pulse-dot-2"></div>
+                  <div className="h-2 w-2 bg-turquoise-teal rounded-full pulse-dot pulse-dot-3"></div>
                 </div>
-                <div className="text-green-400">{loadingText}</div>
+                <div className="text-turquoise-teal">{loadingText}</div>
               </div>
             </div>
           ) : (

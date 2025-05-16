@@ -6,7 +6,7 @@ const About: React.FC = () => {
     <div className="about-container">
       <div className="flex flex-col md:flex-row md:items-center md:space-x-6 mb-6">
         <div className="mb-4 md:mb-0 flex-shrink-0">
-          <div className="profile-image-container rounded-full overflow-hidden border-2 border-green-400 w-32 h-32 md:w-40 md:h-40 mx-auto md:mx-0">
+          <div className="profile-image-container rounded-full overflow-hidden border-2 border-turquoise-teal w-32 h-32 md:w-40 md:h-40 mx-auto md:mx-0">
             <Image
               src="/headshot.jpg"
               alt="Dan Edwards"

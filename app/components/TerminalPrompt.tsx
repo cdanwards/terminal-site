@@ -107,14 +107,6 @@ const TerminalPrompt = forwardRef<TerminalPromptHandle, TerminalPromptProps>(
       updateSuggestions(value);
     };
 
-    const handleSuggestionClick = (suggestion: string) => {
-      setInputValue(suggestion);
-      setShowSuggestions(false);
-      if (inputRef.current) {
-        inputRef.current.focus();
-      }
-    };
-
     return (
       <div className="relative">
         <div className="flex items-center">
@@ -123,7 +115,7 @@ const TerminalPrompt = forwardRef<TerminalPromptHandle, TerminalPromptProps>(
             <div className="flex items-center bg-transparent w-full command-text px-2 py-1 relative">
               <input
                 ref={inputRef}
-                className="bg-transparent w-full command-text focus:outline-none focus:ring-4 focus:ring-green-500 focus:ring-opacity-50 caret-transparent pl-0"
+                className="bg-transparent w-full command-text focus:outline-none focus:ring-4 focus:ring-turquoise-teal focus:ring-opacity-50 caret-transparent pl-0"
                 type="text"
                 placeholder=""
                 value={inputValue}

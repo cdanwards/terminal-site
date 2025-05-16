@@ -13,10 +13,7 @@ const Help: React.FC = () => {
   return (
     <div className="output-text">
       <div className="mb-3">
-        <h3
-          className="text-xl font-bold"
-          style={{ color: "var(--terminal-green)" }}
-        >
+        <h3 className="text-xl font-bold text-turquoise-teal">
           Available Commands:
         </h3>
         <p className="text-sm mt-1 text-gray-400">
@@ -26,11 +23,11 @@ const Help: React.FC = () => {
       <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
         {allCommands.map((cmd, index) => (
           <div key={index} className="flex items-start">
-            <span className="mr-2" style={{ color: "var(--terminal-green)" }}>
-              •
-            </span>
+            <span className="mr-2 text-turquoise-teal">•</span>
             <div>
-              <div className="font-bold command-text">{cmd}</div>
+              <div className="font-bold command-text text-muted-magenta">
+                {cmd}
+              </div>
               <div className="text-xs text-gray-400">
                 {getCommandDescription(cmd)}
               </div>

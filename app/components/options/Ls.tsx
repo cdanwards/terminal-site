@@ -10,7 +10,9 @@ const Ls: React.FC = () => {
   return (
     <div>
       <div className="mb-2">
-        <span className="text-green-400 font-bold">Available commands:</span>
+        <span className="text-turquoise-teal font-bold">
+          Available commands:
+        </span>
       </div>
       <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
         {commands.map((command, index) => (
