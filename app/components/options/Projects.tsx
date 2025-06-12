@@ -14,7 +14,7 @@ const Projects: React.FC = () => {
       description:
         "A unique portfolio website that simulates a terminal interface, allowing visitors to navigate through different sections using terminal commands.",
       technologies: ["Next.js", "TypeScript", "React", "Tailwind CSS"],
-      link: "https://github.com/cdanwards/terminal-website",
+      link: "https://github.com/cdanwards/terminal-site",
     },
     {
       title: "Psychosocial",
