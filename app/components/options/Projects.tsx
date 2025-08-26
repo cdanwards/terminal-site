@@ -36,11 +36,19 @@ const Projects: React.FC = () => {
       link: "https://github.com/cdanwards/animation-practice",
     },
     {
-      title: "Word Assassins",
+      title: "Codeword",
       description:
         "A multiplayer word game where players compete to eliminate other players by getting them to say their assigned target words.",
-      technologies: ["React Native", "Firebase", "Socket.io", "Node.js"],
-      link: "https://github.com/cdanwards/word-assassins",
+      technologies: [
+        "React Native",
+        "Expo",
+        "Supabase",
+        "Supabase Auth",
+        "Zustand",
+        "Zod",
+        "Expo Router",
+      ],
+      link: "https://github.com/cdanwards/Codeword",
     },
   ];
 
