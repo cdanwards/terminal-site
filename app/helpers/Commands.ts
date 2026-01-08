@@ -11,6 +11,19 @@ enum PortfolioCommands {
   Ls = "ls",
   Game = "game",
   Theme = "theme",
+  // Easter egg commands
+  Whoami = "whoami",
+  Pwd = "pwd",
+  Sudo = "sudo",
+  Cowsay = "cowsay",
+  Date = "date",
+  Cat = "cat",
+  Man = "man",
+  Rm = "rm",
+  Exit = "exit",
+  Neofetch = "neofetch",
+  Matrix = "matrix",
+  Echo = "echo",
 }
 
 export { PortfolioCommands };

@@ -3,71 +3,42 @@
 import TerminalPrompt from "./components/TerminalPrompt";
 import TerminalHeader from "./components/TerminalHeader";
 import TerminalFooter from "./components/TerminalFooter";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import TerminalHistoryList from "./components/TerminalHistoryList";
 import { PortfolioCommands } from "./helpers/Commands";
+import { useTerminalLoading } from "./hooks/useTerminalLoading";
+import { useTheme } from "./hooks/useTheme";
+import { useAutoScroll } from "./hooks/useAutoScroll";
+import { useUrlCommand } from "./hooks/useUrlCommand";
+import { useKonamiCode } from "./hooks/useKonamiCode";
+import CommandChips from "./components/CommandChips";
+import SolarpunkBackground from "./components/SolarpunkBackground";
 
 export default function Home() {
   const [terminalHistory, setTerminalHistory] = useState<string[]>(["initial"]);
   const [lastInputTime, setLastInputTime] = useState<number>(Date.now());
-  const [isLoading, setIsLoading] = useState(true);
-  const [loadingText, setLoadingText] = useState("Initializing terminal...");
   const terminalPromptRef = useRef<{ focusInput: () => void } | null>(null);
   const terminalContentRef = useRef<HTMLDivElement>(null);
 
-  // Terminal startup simulation
-  useEffect(() => {
-    const loadingMessages = [
-      "Initializing terminal...",
-      "Loading configuration...",
-      "Establishing connection...",
-      "Mounting file systems...",
-      "Starting shell services...",
-      "Terminal ready.",
-    ];
+  // Custom hooks
+  const { isLoading, loadingText } = useTerminalLoading();
+  useTheme();
+  useAutoScroll(terminalContentRef, [terminalHistory, isLoading]);
 
-    let messageIndex = 0;
-    const loadingInterval = setInterval(() => {
-      if (messageIndex < loadingMessages.length - 1) {
-        setLoadingText(loadingMessages[messageIndex]);
-        messageIndex++;
-      } else {
-        setLoadingText(loadingMessages[messageIndex]);
-        clearInterval(loadingInterval);
-        setTimeout(() => {
-          setIsLoading(false);
-        }, 800);
-      }
-    }, 600);
-
-    return () => clearInterval(loadingInterval);
-  }, []);
-
-  // Set theme on initial load
-  useEffect(() => {
-    const savedTheme = localStorage.getItem("terminal-theme") as
-      | "light"
-      | "dark"
-      | null;
-    if (savedTheme) {
-      document.documentElement.setAttribute("data-theme", savedTheme);
-    } else {
-      document.documentElement.setAttribute("data-theme", "dark");
-    }
-  }, []);
-
-  // Scroll to bottom when content changes
-  useEffect(() => {
-    if (terminalContentRef.current) {
-      terminalContentRef.current.scrollTop =
-        terminalContentRef.current.scrollHeight;
-    }
-  }, [terminalHistory, isLoading]);
-
-  const addToTerminalHistory = (line: string) => {
+  const addToTerminalHistory = useCallback((line: string) => {
     setTerminalHistory((prev) => [...prev, line]);
     setLastInputTime(Date.now());
-  };
+  }, []);
+
+  // Handle URL command parameter (e.g., ?cmd=about)
+  useUrlCommand(addToTerminalHistory, isLoading);
+
+  // Konami code easter egg - triggers matrix effect
+  useKonamiCode(
+    useCallback(() => {
+      addToTerminalHistory("matrix");
+    }, [addToTerminalHistory])
+  );
 
   useEffect(() => {
     if (
@@ -126,6 +97,8 @@ export default function Home() {
 
               {/* Fixed input area */}
               <div className="px-4 py-2 border-t terminal-input-area">
+                {/* Mobile command chips */}
+                <CommandChips onCommand={addToTerminalHistory} />
                 <TerminalPrompt
                   ref={terminalPromptRef}
                   addToTerminalHistory={addToTerminalHistory}
@@ -137,14 +110,7 @@ export default function Home() {
 
         <TerminalFooter />
       </div>
-      <div className="fixed inset-0 -z-10 flex">
-        <div className="w-1/6 bg-deep-teal"></div>
-        <div className="w-1/6 bg-turquoise-teal"></div>
-        <div className="w-1/6 bg-light-gray-blue"></div>
-        <div className="w-1/6 bg-muted-magenta"></div>
-        <div className="w-1/6 bg-dusty-brown"></div>
-        <div className="w-1/6 bg-mustard-gold"></div>
-      </div>
+      <SolarpunkBackground />
     </main>
   );
 }

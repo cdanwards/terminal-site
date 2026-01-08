@@ -29,6 +29,7 @@
   --project-title: #9c7643;
   --project-tag-bg: #d0d0d0;
   --project-link: #853e56;
+  --autocomplete-hint: #666666;
 }
 
 [data-theme="dark"] {
@@ -50,6 +51,7 @@
   --project-title: #9c7643;
   --project-tag-bg: rgba(45, 45, 45, 0.7);
   --project-link: #853e56;
+  --autocomplete-hint: #888888;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -271,12 +273,18 @@ body {
 
 /* Autocomplete suggestion styling */
 .autocomplete-suggestion {
-  opacity: 0.5;
-  color: var(--terminal-text);
+  color: var(--autocomplete-hint);
   pointer-events: none;
   user-select: none;
   white-space: nowrap;
   overflow: hidden;
+}
+
+/* Accessible focus indicator for terminal input */
+.terminal-input-area input:focus-visible {
+  outline: 2px solid var(--terminal-green);
+  outline-offset: 2px;
+  border-radius: 2px;
 }
 
 /* Projects component styling */
@@ -1595,4 +1603,545 @@ body {
   text-align: center;
   white-space: nowrap;
   filter: drop-shadow(0 0 5px rgba(255, 105, 180, 0.5));
+}
+
+/* Mobile command chips */
+.command-chip {
+  background-color: var(--suggestion-bg);
+  border-color: var(--terminal-border);
+  color: var(--terminal-text);
+  transition: all 0.2s ease;
+  cursor: pointer;
+
+  &:hover,
+  &:active {
+    background-color: var(--suggestion-hover);
+    transform: scale(1.05);
+  }
+
+  &:focus {
+    outline: 2px solid var(--terminal-green);
+    outline-offset: 2px;
+  }
+}
+
+/* ============================================
+   SOLARPUNK PIXEL ART BACKGROUND
+   ============================================ */
+
+.solarpunk-bg {
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+/* Sky gradient - golden hour solarpunk vibes */
+.sky-gradient {
+  background: linear-gradient(
+    to bottom,
+    #1a1a2e 0%,
+    #16213e 15%,
+    #1f4068 30%,
+    #5b8a72 50%,
+    #e8b86d 70%,
+    #f0a04b 85%,
+    #e85d04 95%,
+    #dc2f02 100%
+  );
+}
+
+/* Pixelated sun */
+.sun {
+  position: absolute;
+  bottom: 25%;
+  right: 15%;
+  width: 60px;
+  height: 60px;
+  background: #fff5c0;
+  box-shadow:
+    0 0 0 4px #ffe066,
+    0 0 0 8px rgba(255, 224, 102, 0.6),
+    0 0 0 12px rgba(255, 200, 87, 0.4),
+    0 0 30px 15px rgba(255, 183, 77, 0.3),
+    0 0 60px 30px rgba(232, 93, 4, 0.2);
+  animation: sun-glow 4s ease-in-out infinite;
+}
+
+@keyframes sun-glow {
+  0%, 100% {
+    box-shadow:
+      0 0 0 4px #ffe066,
+      0 0 0 8px rgba(255, 224, 102, 0.6),
+      0 0 0 12px rgba(255, 200, 87, 0.4),
+      0 0 30px 15px rgba(255, 183, 77, 0.3),
+      0 0 60px 30px rgba(232, 93, 4, 0.2);
+  }
+  50% {
+    box-shadow:
+      0 0 0 4px #ffe066,
+      0 0 0 10px rgba(255, 224, 102, 0.7),
+      0 0 0 16px rgba(255, 200, 87, 0.5),
+      0 0 40px 20px rgba(255, 183, 77, 0.4),
+      0 0 80px 40px rgba(232, 93, 4, 0.3);
+  }
+}
+
+/* Clouds */
+.cloud {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 0;
+}
+
+.cloud::before,
+.cloud::after {
+  content: '';
+  position: absolute;
+  background: inherit;
+}
+
+.cloud-1 {
+  width: 80px;
+  height: 20px;
+  top: 12%;
+  left: 10%;
+  animation: cloud-drift 120s linear infinite;
+}
+
+.cloud-1::before {
+  width: 30px;
+  height: 20px;
+  top: -15px;
+  left: 15px;
+}
+
+.cloud-1::after {
+  width: 25px;
+  height: 15px;
+  top: -10px;
+  left: 40px;
+}
+
+.cloud-2 {
+  width: 100px;
+  height: 24px;
+  top: 8%;
+  left: 50%;
+  animation: cloud-drift 100s linear infinite;
+  animation-delay: -30s;
+}
+
+.cloud-2::before {
+  width: 40px;
+  height: 24px;
+  top: -18px;
+  left: 20px;
+}
+
+.cloud-2::after {
+  width: 30px;
+  height: 18px;
+  top: -12px;
+  left: 55px;
+}
+
+.cloud-3 {
+  width: 60px;
+  height: 16px;
+  top: 18%;
+  left: 75%;
+  animation: cloud-drift 150s linear infinite;
+  animation-delay: -60s;
+}
+
+.cloud-3::before {
+  width: 24px;
+  height: 16px;
+  top: -12px;
+  left: 10px;
+}
+
+@keyframes cloud-drift {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(100vw);
+  }
+}
+
+/* Mountains/hills */
+.mountains {
+  position: absolute;
+  bottom: 20%;
+  left: 0;
+  right: 0;
+  height: 200px;
+  background:
+    /* Far mountain */
+    linear-gradient(135deg, transparent 40%, #2d4a3e 40%, #2d4a3e 60%, transparent 60%) -100px 100px / 300px 150px no-repeat,
+    linear-gradient(225deg, transparent 40%, #2d4a3e 40%, #2d4a3e 60%, transparent 60%) 50px 100px / 300px 150px no-repeat,
+    /* Mid mountain */
+    linear-gradient(140deg, transparent 35%, #1f3a30 35%, #1f3a30 65%, transparent 65%) 200px 80px / 400px 180px no-repeat,
+    linear-gradient(220deg, transparent 35%, #1f3a30 35%, #1f3a30 65%, transparent 65%) 500px 80px / 400px 180px no-repeat,
+    /* Near hills */
+    linear-gradient(150deg, transparent 30%, #3d5a4c 30%, #3d5a4c 70%, transparent 70%) 600px 120px / 350px 120px no-repeat,
+    linear-gradient(160deg, transparent 25%, #4a6b5a 25%, #4a6b5a 75%, transparent 75%) 900px 140px / 300px 100px no-repeat;
+}
+
+/* Wind turbines */
+.turbine {
+  position: absolute;
+  bottom: 28%;
+}
+
+.turbine-1 {
+  left: 20%;
+}
+
+.turbine-2 {
+  left: 28%;
+  transform: scale(0.7);
+  bottom: 26%;
+}
+
+.turbine-pole {
+  width: 6px;
+  height: 80px;
+  background: linear-gradient(to bottom, #e8e8e8, #b0b0b0);
+  margin: 0 auto;
+}
+
+.turbine-blades {
+  position: absolute;
+  top: -5px;
+  left: 50%;
+  width: 60px;
+  height: 60px;
+  transform: translateX(-50%);
+  animation: turbine-spin 8s linear infinite;
+}
+
+.turbine-blades::before,
+.turbine-blades::after {
+  content: '';
+  position: absolute;
+  background: #f0f0f0;
+}
+
+.turbine-blades::before {
+  width: 4px;
+  height: 28px;
+  top: 50%;
+  left: 50%;
+  transform-origin: center top;
+  transform: translate(-50%, 0);
+  box-shadow:
+    0 0 0 0 #f0f0f0,
+    -12px -20px 0 0 #f0f0f0,
+    12px -20px 0 0 #f0f0f0;
+}
+
+.turbine-1 .turbine-blades {
+  animation-duration: 6s;
+}
+
+.turbine-2 .turbine-blades {
+  animation-duration: 8s;
+  animation-delay: -2s;
+}
+
+@keyframes turbine-spin {
+  from {
+    transform: translateX(-50%) rotate(0deg);
+  }
+  to {
+    transform: translateX(-50%) rotate(360deg);
+  }
+}
+
+/* Solar panels */
+.solar-panel {
+  position: absolute;
+  bottom: 18%;
+  width: 40px;
+  height: 24px;
+  background: linear-gradient(
+    135deg,
+    #1a365d 0%,
+    #2a4a7f 25%,
+    #1a365d 50%,
+    #2a4a7f 75%,
+    #1a365d 100%
+  );
+  border: 2px solid #4a6fa5;
+  transform: perspective(100px) rotateX(30deg);
+  animation: panel-shimmer 3s ease-in-out infinite;
+}
+
+.solar-panel::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.1) 45%,
+    rgba(255, 255, 255, 0.2) 50%,
+    rgba(255, 255, 255, 0.1) 55%,
+    transparent 100%
+  );
+  animation: panel-glint 4s ease-in-out infinite;
+}
+
+.solar-panel-1 {
+  left: 60%;
+  animation-delay: 0s;
+}
+
+.solar-panel-2 {
+  left: 65%;
+  bottom: 17%;
+  animation-delay: -1s;
+}
+
+.solar-panel-3 {
+  left: 70%;
+  bottom: 16%;
+  animation-delay: -2s;
+}
+
+@keyframes panel-shimmer {
+  0%, 100% {
+    filter: brightness(1);
+  }
+  50% {
+    filter: brightness(1.1);
+  }
+}
+
+@keyframes panel-glint {
+  0%, 100% {
+    transform: translateX(-100%);
+  }
+  50% {
+    transform: translateX(100%);
+  }
+}
+
+/* Trees */
+.tree {
+  position: absolute;
+  bottom: 12%;
+}
+
+/* Tree trunk */
+.tree::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 8px;
+  height: 30px;
+  background: #5d4037;
+}
+
+/* Tree foliage - pixelated circular shape */
+.tree::after {
+  content: '';
+  position: absolute;
+  bottom: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 30px;
+  height: 40px;
+  background: #2e7d32;
+  border-radius: 50% 50% 40% 40%;
+  box-shadow:
+    -10px 5px 0 -2px #1b5e20,
+    10px 8px 0 -4px #388e3c;
+  animation: tree-sway 6s ease-in-out infinite;
+}
+
+.tree-1 {
+  left: 5%;
+  transform: scale(1.2);
+}
+
+.tree-1::after {
+  animation-delay: 0s;
+}
+
+.tree-2 {
+  left: 12%;
+  transform: scale(0.9);
+}
+
+.tree-2::after {
+  animation-delay: -1s;
+}
+
+.tree-3 {
+  left: 85%;
+  transform: scale(1.1);
+}
+
+.tree-3::after {
+  animation-delay: -2s;
+}
+
+.tree-4 {
+  left: 90%;
+  transform: scale(0.8);
+}
+
+.tree-4::after {
+  animation-delay: -3s;
+}
+
+.tree-5 {
+  left: 95%;
+  transform: scale(1);
+}
+
+.tree-5::after {
+  animation-delay: -4s;
+}
+
+@keyframes tree-sway {
+  0%, 100% {
+    transform: translateX(-50%) rotate(-1deg);
+  }
+  50% {
+    transform: translateX(-50%) rotate(1deg);
+  }
+}
+
+/* Ground */
+.ground {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 15%;
+  background: linear-gradient(
+    to bottom,
+    #4a7c59 0%,
+    #3d6b4f 30%,
+    #2d5a3f 60%,
+    #1e4a30 100%
+  );
+}
+
+/* Grass tufts */
+.grass {
+  position: absolute;
+  bottom: 14%;
+  width: 8px;
+  height: 12px;
+  background: #5a9c6a;
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+  animation: grass-sway 3s ease-in-out infinite;
+}
+
+.grass::before,
+.grass::after {
+  content: '';
+  position: absolute;
+  width: 6px;
+  height: 10px;
+  background: #4a8c5a;
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+}
+
+.grass::before {
+  left: -6px;
+  transform: rotate(-15deg);
+}
+
+.grass::after {
+  right: -6px;
+  transform: rotate(15deg);
+}
+
+.grass-1 { left: 15%; animation-delay: 0s; }
+.grass-2 { left: 35%; animation-delay: -0.5s; }
+.grass-3 { left: 50%; animation-delay: -1s; }
+.grass-4 { left: 72%; animation-delay: -1.5s; }
+.grass-5 { left: 82%; animation-delay: -2s; }
+.grass-6 { left: 45%; animation-delay: -2.5s; }
+
+@keyframes grass-sway {
+  0%, 100% {
+    transform: rotate(-3deg);
+  }
+  50% {
+    transform: rotate(3deg);
+  }
+}
+
+/* Light theme adjustments for solarpunk background */
+[data-theme="light"] .sky-gradient {
+  background: linear-gradient(
+    to bottom,
+    #87ceeb 0%,
+    #98d8f0 20%,
+    #b4e4f7 40%,
+    #d4f0e0 55%,
+    #fff8dc 70%,
+    #ffe4b5 85%,
+    #ffd89b 100%
+  );
+}
+
+[data-theme="light"] .sun {
+  background: #fff8dc;
+  box-shadow:
+    0 0 0 4px #ffe066,
+    0 0 0 8px rgba(255, 224, 102, 0.5),
+    0 0 20px 10px rgba(255, 200, 87, 0.3),
+    0 0 40px 20px rgba(255, 183, 77, 0.2);
+}
+
+[data-theme="light"] .cloud {
+  background: rgba(255, 255, 255, 0.7);
+}
+
+[data-theme="light"] .mountains {
+  background:
+    linear-gradient(135deg, transparent 40%, #5a8a6e 40%, #5a8a6e 60%, transparent 60%) -100px 100px / 300px 150px no-repeat,
+    linear-gradient(225deg, transparent 40%, #5a8a6e 40%, #5a8a6e 60%, transparent 60%) 50px 100px / 300px 150px no-repeat,
+    linear-gradient(140deg, transparent 35%, #4a7a5e 35%, #4a7a5e 65%, transparent 65%) 200px 80px / 400px 180px no-repeat,
+    linear-gradient(220deg, transparent 35%, #4a7a5e 35%, #4a7a5e 65%, transparent 65%) 500px 80px / 400px 180px no-repeat,
+    linear-gradient(150deg, transparent 30%, #6a9a7e 30%, #6a9a7e 70%, transparent 70%) 600px 120px / 350px 120px no-repeat,
+    linear-gradient(160deg, transparent 25%, #7aaa8e 25%, #7aaa8e 75%, transparent 75%) 900px 140px / 300px 100px no-repeat;
+}
+
+[data-theme="light"] .ground {
+  background: linear-gradient(
+    to bottom,
+    #7cb987 0%,
+    #6aad76 30%,
+    #5a9d66 60%,
+    #4a8d56 100%
+  );
+}
+
+[data-theme="light"] .tree::after {
+  background: #4caf50;
+  box-shadow:
+    -10px 5px 0 -2px #388e3c,
+    10px 8px 0 -4px #66bb6a;
+}
+
+[data-theme="light"] .grass {
+  background: #81c784;
+}
+
+[data-theme="light"] .grass::before,
+[data-theme="light"] .grass::after {
+  background: #66bb6a;
 }

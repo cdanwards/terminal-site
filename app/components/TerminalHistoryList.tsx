@@ -14,7 +14,12 @@ const TerminalHistoryList: React.FC<TerminalHistoryListProps> = ({
   const displayInputs = inputs.filter((input) => input !== "initial");
 
   return (
-    <div className="terminal-history">
+    <div
+      className="terminal-history"
+      role="log"
+      aria-live="polite"
+      aria-label="Terminal output"
+    >
       {displayInputs.map((input, index) => (
         <React.Fragment key={`${input}-${index}`}>
           <TerminalHistoryInput command={input} clearHistory={clearHistory} />

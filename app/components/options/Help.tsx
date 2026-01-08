@@ -72,6 +72,31 @@ function getCommandDescription(command: string): string {
       return "Toggle light/dark mode";
     case "clear":
       return "Clear terminal history";
+    // Easter egg commands
+    case PortfolioCommands.Whoami:
+      return "Who are you?";
+    case PortfolioCommands.Pwd:
+      return "Print working directory";
+    case PortfolioCommands.Sudo:
+      return "Try your luck";
+    case PortfolioCommands.Cowsay:
+      return "A friendly cow";
+    case PortfolioCommands.Date:
+      return "Current date and time";
+    case PortfolioCommands.Cat:
+      return "Display a cat";
+    case PortfolioCommands.Man:
+      return "Manual pages";
+    case PortfolioCommands.Rm:
+      return "Remove files";
+    case PortfolioCommands.Exit:
+      return "Exit the terminal";
+    case PortfolioCommands.Neofetch:
+      return "System information";
+    case PortfolioCommands.Matrix:
+      return "Enter the matrix";
+    case PortfolioCommands.Echo:
+      return "Echo text back";
     default:
       return "";
   }

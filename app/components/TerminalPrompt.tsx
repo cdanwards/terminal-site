@@ -6,6 +6,7 @@ import React, {
   useImperativeHandle,
 } from "react";
 import { PortfolioCommands } from "../helpers/Commands";
+import { useCommandHistory } from "../hooks/useCommandHistory";
 
 type TerminalPromptProps = {
   addToTerminalHistory: (line: string) => void;
@@ -15,10 +16,17 @@ export type TerminalPromptHandle = {
   focusInput: () => void;
 };
 
+// Memoized at module level to avoid recalculation on every render
+const availableCommands = Object.values(PortfolioCommands).filter(
+  (cmd) => cmd !== "initial"
+);
+const allCommands = [...availableCommands, "clear"];
+
 const TerminalPrompt = forwardRef<TerminalPromptHandle, TerminalPromptProps>(
   ({ addToTerminalHistory }, ref) => {
     const [inputValue, setInputValue] = useState<string>("");
-    const [commandHistory, setCommandHistory] = useState<string[]>([]);
+    const { history: commandHistory, addCommand: addToCommandHistory } =
+      useCommandHistory();
     const [historyIndex, setHistoryIndex] = useState<number>(-1);
     const [suggestions, setSuggestions] = useState<string[]>([]);
     const [showSuggestions, setShowSuggestions] = useState<boolean>(false);
@@ -32,13 +40,6 @@ const TerminalPrompt = forwardRef<TerminalPromptHandle, TerminalPromptProps>(
         }
       },
     }));
-
-    // Get all available commands from the enum
-    const availableCommands = Object.values(PortfolioCommands).filter(
-      (cmd) => cmd !== "initial"
-    );
-    // Add 'clear' command
-    const allCommands = [...availableCommands, "clear"];
 
     useEffect(() => {
       if (inputRef.current) {
@@ -64,10 +65,7 @@ const TerminalPrompt = forwardRef<TerminalPromptHandle, TerminalPromptProps>(
       if (e.key === "Enter") {
         if (inputValue.trim()) {
           addToTerminalHistory(inputValue);
-          // Add to history only if not duplicate of last command
-          if (commandHistory.length === 0 || commandHistory[0] !== inputValue) {
-            setCommandHistory([inputValue, ...commandHistory].slice(0, 10));
-          }
+          addToCommandHistory(inputValue);
           setInputValue("");
           setHistoryIndex(-1);
           setShowSuggestions(false);
@@ -122,6 +120,8 @@ const TerminalPrompt = forwardRef<TerminalPromptHandle, TerminalPromptProps>(
                 onChange={handleChange}
                 onKeyDown={handleKeyDown}
                 autoFocus
+                aria-label="Terminal command input"
+                aria-autocomplete="list"
                 style={{ paddingRight: "4px" }}
               />
               <div
