@@ -1,10 +1,8 @@
-
-
+// ============ FIREWORKS ============
 $particles: 50;
 $width: 500;
 $height: 500;
 
-// Create the explosion...
 $box-shadow: ();
 $box-shadow2: ();
 @for $i from 0 through $particles {
@@ -14,58 +12,16 @@ $box-shadow2: ();
                hsl(random(360), 100, 50);
   $box-shadow2: $box-shadow2, 0 0 #fff
 }
+
 @mixin keyframes ($animationName) {
-    @-webkit-keyframes #{$animationName} {
-        @content;
-    }
-
-    @-moz-keyframes #{$animationName} {
-        @content;
-    }
-
-    @-o-keyframes #{$animationName} {
-        @content;
-    }
-
-    @-ms-keyframes #{$animationName} {
-        @content;
-    }
-
-    @keyframes #{$animationName} {
-        @content;
-    }
+  @keyframes #{$animationName} {
+    @content;
+  }
 }
 
-@mixin animation-delay ($settings) {
-    -moz-animation-delay: $settings;
-    -webkit-animation-delay: $settings;
-    -o-animation-delay: $settings;
-    -ms-animation-delay: $settings;
-    animation-delay: $settings;
-}
-
-@mixin animation-duration ($settings) {
-    -moz-animation-duration: $settings;
-    -webkit-animation-duration: $settings;
-    -o-animation-duration: $settings;
-    -ms-animation-duration: $settings;
-    animation-duration: $settings;
-}
-
-@mixin animation ($settings) {
-    -moz-animation: $settings;
-    -webkit-animation: $settings;
-    -o-animation: $settings;
-    -ms-animation: $settings;
-    animation: $settings;
-}
-
-@mixin transform ($settings) {
-    transform: $settings;
-    -moz-transform: $settings;
-    -webkit-transform: $settings;
-    -o-transform: $settings;
-    -ms-transform: $settings;
+.pyro {
+  position: absolute;
+  inset: 0;
 }
 
 .pyro > .before, .pyro > .after {
@@ -74,27 +30,29 @@ $box-shadow2: ();
   height: 5px;
   border-radius: 50%;
   box-shadow: $box-shadow2;
-  @include animation((1s bang ease-out infinite backwards, 1s gravity ease-in infinite backwards, 5s position linear infinite backwards));
+  animation: 1s bang ease-out infinite backwards,
+             1s gravity ease-in infinite backwards,
+             5s position linear infinite backwards;
 }
-    
+
 .pyro > .after {
-  @include animation-delay((1.25s, 1.25s, 1.25s));
-  @include animation-duration((1.25s, 1.25s, 6.25s));
+  animation-delay: 1.25s, 1.25s, 1.25s;
+  animation-duration: 1.25s, 1.25s, 6.25s;
 }
-        
+
 @include keyframes(bang) {
   to {
-    box-shadow:$box-shadow;
+    box-shadow: $box-shadow;
   }
 }
-    
-@include keyframes(gravity)  {
+
+@include keyframes(gravity) {
   to {
-    @include transform(translateY(200px));
+    transform: translateY(200px);
     opacity: 0;
   }
 }
-    
+
 @include keyframes(position) {
   0%, 19.9% {
     margin-top: 10%;
@@ -104,16 +62,245 @@ $box-shadow2: ();
     margin-top: 40%;
     margin-left: 30%;
   }
-  40%, 59.9% {  
+  40%, 59.9% {
     margin-top: 20%;
     margin-left: 70%
   }
-  60%, 79.9% {  
+  60%, 79.9% {
     margin-top: 30%;
     margin-left: 20%;
   }
-  80%, 99.9% {  
+  80%, 99.9% {
     margin-top: 30%;
     margin-left: 80%;
   }
+}
+
+// ============ PARTY MODE ============
+.partyMode {
+  position: relative;
+}
+
+.rainbowBg {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    124deg,
+    #ff2400, #e81d1d, #e8b71d, #e3e81d,
+    #1de840, #1ddde8, #2b1de8, #dd00f3, #dd00f3
+  );
+  background-size: 1800% 1800%;
+  animation: rainbowShift 3s ease infinite;
+}
+
+@keyframes rainbowShift {
+  0% { background-position: 0% 82%; }
+  50% { background-position: 100% 19%; }
+  100% { background-position: 0% 82%; }
+}
+
+.discoBall {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 2.5rem;
+  animation: discoPulse 0.5s ease-in-out infinite alternate;
+  filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.8));
+  z-index: 5;
+}
+
+@keyframes discoPulse {
+  from { transform: translateX(-50%) scale(1) rotate(-5deg); }
+  to { transform: translateX(-50%) scale(1.1) rotate(5deg); }
+}
+
+.floatingEmoji {
+  position: absolute;
+  bottom: -30px;
+  font-size: 1.5rem;
+  animation: floatUp 3s ease-out forwards;
+  z-index: 2;
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-180px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+// ============ SLOT MACHINE ============
+.slotSpin {
+  animation: slotBlur 0.1s linear infinite;
+}
+
+@keyframes slotBlur {
+  0% { transform: translateY(-2px); }
+  50% { transform: translateY(2px); }
+  100% { transform: translateY(-2px); }
+}
+
+// ============ GLITCH EFFECT ============
+.glitchContainer {
+  position: relative;
+}
+
+.scanlines {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.15),
+    rgba(0, 0, 0, 0.15) 1px,
+    transparent 1px,
+    transparent 2px
+  );
+  pointer-events: none;
+  z-index: 10;
+}
+
+.glitchOverlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 255, 0, 0.03);
+  animation: flicker 0.15s infinite;
+  pointer-events: none;
+}
+
+@keyframes flicker {
+  0% { opacity: 0.27861; }
+  5% { opacity: 0.34769; }
+  10% { opacity: 0.23604; }
+  15% { opacity: 0.90626; }
+  20% { opacity: 0.18128; }
+  25% { opacity: 0.83891; }
+  30% { opacity: 0.65583; }
+  35% { opacity: 0.67807; }
+  40% { opacity: 0.26559; }
+  45% { opacity: 0.84693; }
+  50% { opacity: 0.96019; }
+  55% { opacity: 0.08594; }
+  60% { opacity: 0.20313; }
+  65% { opacity: 0.71988; }
+  70% { opacity: 0.53455; }
+  75% { opacity: 0.37288; }
+  80% { opacity: 0.71428; }
+  85% { opacity: 0.70419; }
+  90% { opacity: 0.7003; }
+  95% { opacity: 0.36108; }
+  100% { opacity: 0.24387; }
+}
+
+.glitchText {
+  font-family: monospace;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #0f0;
+  text-shadow: 0 0 10px #0f0;
+  position: relative;
+  animation: textGlitch 2s infinite;
+
+  &::before,
+  &::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  &::before {
+    color: #f0f;
+    animation: glitchLeft 0.3s infinite;
+    clip-path: polygon(0 0, 100% 0, 100% 35%, 0 35%);
+    transform: translate(-2px);
+  }
+
+  &::after {
+    color: #0ff;
+    animation: glitchRight 0.3s infinite;
+    clip-path: polygon(0 65%, 100% 65%, 100% 100%, 0 100%);
+    transform: translate(2px);
+  }
+}
+
+@keyframes textGlitch {
+  0%, 100% { transform: translate(0); }
+  20% { transform: translate(-2px, 2px); }
+  40% { transform: translate(-2px, -2px); }
+  60% { transform: translate(2px, 2px); }
+  80% { transform: translate(2px, -2px); }
+}
+
+@keyframes glitchLeft {
+  0%, 100% { transform: translate(0); }
+  20% { transform: translate(-3px, 1px); }
+  40% { transform: translate(3px, -1px); }
+  60% { transform: translate(-1px, 2px); }
+  80% { transform: translate(1px, -2px); }
+}
+
+@keyframes glitchRight {
+  0%, 100% { transform: translate(0); }
+  20% { transform: translate(3px, -1px); }
+  40% { transform: translate(-3px, 1px); }
+  60% { transform: translate(1px, -2px); }
+  80% { transform: translate(-1px, 2px); }
+}
+
+// ============ MAGIC 8-BALL ============
+.magic8Ball {
+  width: 100px;
+  height: 100px;
+  background: radial-gradient(circle at 30% 30%, #444, #000);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow:
+    inset -10px -10px 30px rgba(255, 255, 255, 0.1),
+    0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.ball8Window {
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, #1a1a4e, #000033);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #333;
+}
+
+.ball8Text {
+  color: #fff;
+  font-size: 0.6rem;
+  text-align: center;
+  padding: 5px;
+  text-transform: uppercase;
+  font-weight: bold;
+  animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.8); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.shaking {
+  animation: shake8Ball 0.1s linear infinite;
+}
+
+@keyframes shake8Ball {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  25% { transform: translate(-3px, 2px) rotate(-2deg); }
+  50% { transform: translate(3px, -2px) rotate(2deg); }
+  75% { transform: translate(-2px, -3px) rotate(-1deg); }
 }
