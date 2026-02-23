@@ -1,0 +1,33 @@
+# Dan Edwards — Terminal Portfolio
+
+> A portfolio website for Dan Edwards, a Senior Software Engineer at Infinite Red. The site is presented as an interactive terminal interface where visitors type commands to navigate sections. Built with Next.js, TypeScript, React, and Tailwind CSS.
+
+Dan Edwards is a Web & Mobile Developer with over 9 years of experience, specializing in React Native, TypeScript, and AI. He currently works at Infinite Red building design systems, component libraries, and mobile apps for Fortune 5 companies. Previously he worked at Wise Technologies, Orange Bees, and NewSpring Church. He holds a B.S. in Finance from Anderson University and studied Front End Web Development at The Iron Yard.
+
+The site supports terminal commands: type `about`, `projects`, `skills`, `resume`, `contact`, `help`, `theme`, `surprise`, `download`, `game`, and more. Easter egg commands include `matrix`, `cowsay`, `neofetch`, `sudo`, and `whoami`. Use Tab to autocomplete and arrow keys to navigate command history. The site also responds to URL query parameters (e.g., `?cmd=about`).
+
+## Links
+
+- [GitHub](https://github.com/cdanwards): Dan's GitHub profile and open source work
+- [LinkedIn](https://www.linkedin.com/in/cdanwards/): Professional profile and networking
+- [BlueSky](https://bsky.app/profile/cdanwards.bsky.social): Social media presence
+- [Email](mailto:cdaniel.edwards@gmail.com): Direct contact
+
+## Projects
+
+- [Terminal Portfolio Website](https://github.com/cdanwards/terminal-site): This site — a portfolio presented as an interactive terminal interface, built with Next.js, TypeScript, React, and Tailwind CSS
+- [Psychosocial](https://github.com/cdanwards/psychosocial): A parody social media platform with a metal-inspired interface, built with React, Node.js, Express, and MongoDB
+- [Animation Practice](https://github.com/cdanwards/animation-practice): React Native animation experiments using the Animation API with TypeScript and Expo
+- [Codeword](https://github.com/cdanwards/Codeword): A multiplayer word game built with React Native, Expo, Supabase, Zustand, and Expo Router
+
+## Skills
+
+- Frontend: React.js, React Native, Expo, Next.js, TypeScript, GraphQL, Apollo, Node.js, Tailwind CSS, Shadcn UI
+- State Management: Redux, MST, Zustand, React Context
+- Testing: Jest, React Testing Library, Cypress, Playwright, Detox, Maestro, Storybook
+- DevOps & Scaling: EAS, GitHub Actions, Jenkins, GitLab CI, Docker, Kubernetes, AWS, Monorepos (Yarn Workspaces, Changesets)
+- Collaboration & Leadership: Agile, Design Sprints, Stakeholder Communication, Mentorship, Accessibility & Performance Improvements
+
+## Optional
+
+- [Source Code](https://github.com/cdanwards/terminal-site): Full source code for this terminal portfolio website
