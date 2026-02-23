@@ -14,6 +14,7 @@ const Contact: React.FC = () => {
         className="contact-link"
         href="mailto:cdaniel.edwards@gmail.com"
         target="_blank"
+        rel="noopener noreferrer"
       >
         <span className="icon">📧</span>
         cdaniel.edwards@gmail.com
@@ -23,6 +24,7 @@ const Contact: React.FC = () => {
         className="contact-link"
         href="https://bsky.app/profile/cdanwards.bsky.social"
         target="_blank"
+        rel="noopener noreferrer"
       >
         <span className="icon">🔵</span>
         BlueSky: @cdanwards.bsky.social
@@ -32,6 +34,7 @@ const Contact: React.FC = () => {
         className="contact-link"
         href="https://github.com/cdanwards"
         target="_blank"
+        rel="noopener noreferrer"
       >
         <span className="icon">📂</span>
         GitHub: @cdanwards
@@ -41,6 +44,7 @@ const Contact: React.FC = () => {
         className="contact-link"
         href="https://www.linkedin.com/in/cdanwards/"
         target="_blank"
+        rel="noopener noreferrer"
       >
         <span className="icon">👔</span>
         LinkedIn: cdanwards
