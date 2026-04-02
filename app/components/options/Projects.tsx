@@ -50,6 +50,35 @@ const Projects: React.FC = () => {
       ],
       link: "https://github.com/cdanwards/Codeword",
     },
+    {
+      title: "Inspiration",
+      description:
+        "A mobile app to help process feelings and serve helpful inspiration, providing a supportive space for emotional wellbeing.",
+      technologies: ["React Native", "TypeScript", "Expo", "Kotlin", "Swift"],
+      link: "https://github.com/cdanwards/Inspiration",
+    },
+    {
+      title: "HeyNbr",
+      description:
+        "A modern SaaS platform for neighborhood associations and HOAs to manage their communities, featuring subdomain-based multi-tenancy.",
+      technologies: [
+        "React",
+        "TypeScript",
+        "Express",
+        "tRPC",
+        "PostgreSQL",
+        "Prisma",
+        "Tailwind CSS",
+      ],
+      link: "https://github.com/cdanwards/heynbr",
+    },
+    {
+      title: "Simple Honest Games",
+      description:
+        "A collection of fun, browser-based learning games for young kids learning to read, type, and use a computer. Zero dependencies — works offline on any device.",
+      technologies: ["HTML", "CSS", "JavaScript"],
+      link: "https://github.com/cdanwards/simple-honest-games",
+    },
   ];
 
   return (
